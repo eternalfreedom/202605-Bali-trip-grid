@@ -264,7 +264,7 @@ a{color:var(--gold);}
 <div class="grid-wrap">
 <div class="grid">
 
-<!-- ── COLUMN HEADERS ── -->
+<!-- COLUMN HEADERS -->
 <div class="col-hdr tc"><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);padding-top:6px;letter-spacing:1px">TIME</div></div>
 <div class="col-hdr"><div class="col-date">15</div><div class="col-dow">Fri · May</div><div class="col-dest d-yyz">Toronto YYZ</div></div>
 <div class="col-hdr"><div class="col-date">16</div><div class="col-dow">Sat · May</div><div class="col-dest d-icn">Seoul ICN</div></div>
@@ -272,89 +272,118 @@ a{color:var(--gold);}
 <div class="col-hdr"><div class="col-date">18</div><div class="col-dow">Mon · May</div><div class="col-dest d-sin">Singapore</div></div>
 <div class="col-hdr"><div class="col-date">19</div><div class="col-dow">Tue · May</div><div class="col-dest d-sin">SIN → Bali</div></div>
 <div class="col-hdr"><div class="col-date">20–23</div><div class="col-dow">Wed–Sat</div><div class="col-dest d-bali">Bali 🌺</div></div>
-<div class="col-hdr"><div class="col-date">24</div><div class="col-dow">Sun · May</div><div class="col-dest d-bali">Bali → SIN</div></div>
+<div class="col-hdr"><div class="col-date">24</div><div class="col-dow">Sun · May</div><div class="col-dest d-sin">Bali → SIN</div></div>
 <div class="col-hdr"><div class="col-date">25</div><div class="col-dow">Mon · May</div><div class="col-dest d-sin">Singapore</div></div>
 <div class="col-hdr"><div class="col-date">26</div><div class="col-dow">Tue · May</div><div class="col-dest d-muc">Munich → YYZ</div></div>
 
+<!-- BALI spans rows 1-5 (Morning through Evening). Night row needs explicit Bali placeholder. -->
+
 <!-- ════ ROW: MORNING 06–10 ════ -->
 <div class="tc"><div class="tl">06–10</div></div>
-<div class="cell"><div class="block bw"><div class="btype">Prep</div><div class="btitle">Leave home 10:30</div><div class="bdetail">YYZ T1 · Allow 3h international check-in.</div></div></div>
-<div class="cell in-air"><div class="air-label"><span>AC61 IN AIR · LANDS 17:30</span></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Seoul</div><div class="btime">09:00</div><div class="btitle">Gyeongbokgung Palace</div><div class="bdetail">Opens 9am · Guard change 10am · ₩3,000</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Breakfast</div><div class="btime">08:30</div><div class="btitle">Killiney Kopitiam 1919</div><div class="bdetail">Kaya toast + kopi-O. Original 1919 branch. ~SGD 6.</div></div></div>
-<div class="cell"><div class="block bw"><div class="btype">Logistics</div><div class="btime">09:00</div><div class="btitle">Check out · Head to Changi</div><div class="bdetail">Leave hotel by 11:00. MRT to airport ~30 min.</div></div></div>
-<div class="cell bali-block" style="grid-row:span 5"><div class="block bb" style="min-height:400px;justify-content:center;align-items:center;text-align:center;"><div class="btype">Bali · Wedding</div><div class="btitle" style="font-size:18px;margin-top:8px">🌺</div><div class="btitle" style="margin-top:4px">4 Days</div><div class="bdetail" style="margin-top:8px">At DPS by <strong>10:30am May 24</strong></div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Bali · Last AM</div><div class="btime">09:00</div><div class="btitle">Hotel breakfast</div><div class="bdetail">Light meal. Head to DPS by 10:30.</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Breakfast</div><div class="btime">09:00</div><div class="btitle">Tong Ah Eating House 1939</div><div class="bdetail">Best kopi in SG. Charcoal kaya toast. ~SGD 5.</div></div></div>
-<div class="cell"><div class="block bm"><div class="btype">Arrive · Munich</div><div class="btime">05:15 CET</div><div class="btitle">Land MUC T2</div><div class="bdetail">Bags at left luggage ~€8. S-Bahn S1/S8 → Marienplatz (40 min).</div><div class="wtag">⚠ Back at MUC by 13:30</div></div></div>
+<div class="cell"><div class="block bw"><div class="btype">Prep</div><div class="btitle">Leave home 10:30am</div><div class="bdetail">YYZ T1 · Allow 3h international. Pack wedding outfit in carry-on.</div></div></div>
+<div class="cell in-air"><div class="air-label"><span>AC61 IN AIR · LANDS 17:30 KST</span></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Seoul</div><div class="btime">09:00</div><div class="btitle">Gyeongbokgung Palace</div><div class="bdetail">Opens 9am · Guard change 10am · ₩3,000 · <a href="https://maps.google.com/?q=Gyeongbokgung+Palace+Seoul" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Breakfast</div><div class="btime">08:30</div><div class="btitle">Killiney Kopitiam 1919</div><div class="bdetail">Kaya toast + kopi-O. Original 1919 branch. ~SGD 6. <a href="https://maps.google.com/?q=Killiney+Kopitiam+67+Killiney+Road+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bw"><div class="btype">Logistics</div><div class="btime">09:00</div><div class="btitle">Check out · Head to Changi</div><div class="bdetail">Leave hotel by 11:00. MRT to airport ~30 min. Scoot departs 14:00.</div></div></div>
+<div class="cell bali-block" style="grid-row:span 5"><div class="block bb" style="min-height:400px;justify-content:center;align-items:center;text-align:center;"><div class="btype">Bali · Wedding</div><div class="btitle" style="font-size:18px;margin-top:8px">🌺</div><div class="btitle" style="margin-top:4px">4 Days · No itinerary</div><div class="bdetail" style="margin-top:8px">At DPS by <strong>10:30am May 24</strong> for SQ939 13:15 WITA</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Last Bali Morning</div><div class="btime">09:00</div><div class="btitle">Last breakfast in Bali</div><div class="bdetail">Hotel breakfast. Head to DPS by 10:30. Ngurah Rai can be slow — arrive early.</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Breakfast</div><div class="btime">09:00</div><div class="btitle">Tong Ah Eating House 1939</div><div class="bdetail">Best kopi in SG. Charcoal kaya toast. ~SGD 5. <a href="https://maps.google.com/?q=Tong+Ah+Eating+House+35+Keong+Saik+Road+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bm"><div class="btype">Arrive · Munich</div><div class="btime">05:15 CET</div><div class="btitle">Land MUC T2</div><div class="bdetail">Bags at left luggage ~€8. S-Bahn S1/S8 → Marienplatz (40 min, €13.60). <a href="https://maps.google.com/?q=Munich+Central+Station+Germany" target="_blank">↗ Maps</a></div><div class="wtag">⚠ Back at MUC by 13:30 for LH494</div></div></div>
 
 <!-- ════ ROW: LATE MORNING 10–13 ════ -->
 <div class="tc"><div class="tl">10–13</div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Pre-flight</div><div class="btime">11:00</div><div class="btitle">Lunch at YYZ</div><div class="bdetail">Maple Leaf Lounge if Aeroplan, or Longos T1.</div></div></div>
-<div class="cell in-air"><div class="air-label"><span>IN AIR</span></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Seoul</div><div class="btime">10:30</div><div class="btitle">Bukchon Hanok Village</div><div class="bdetail">15 min walk from palace. Traditional alleyways. Free.</div></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">09:30</div><div class="btitle">Gardens by the Bay</div><div class="bdetail">Flower Dome + Cloud Forest · Book online. ~SGD 53.</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Pre-flight</div><div class="btime">11:30</div><div class="btitle">Ya Kun Kaya Toast · Changi</div><div class="bdetail">Last SG breakfast at airport.</div></div></div>
-<!-- bali spanned -->
-<div class="cell"><div class="block bw"><div class="btype">Transit</div><div class="btime">10:30 WITA</div><div class="btitle">At DPS Airport</div><div class="bdetail">Check in SQ939. Arrive early.</div></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">10:30</div><div class="btitle">Sentosa or Orchard Rd</div><div class="bdetail">Palawan/Siloso beach or ION Orchard + Takashimaya B1.</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Bavarian · Must-Do</div><div class="btime">07:30</div><div class="btitle">Viktualienmarkt Breakfast</div><div class="bdetail">Weisswurst + pretzel + Weissbier. ~€12.</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Pre-flight</div><div class="btime">11:00</div><div class="btitle">Lunch at YYZ T1</div><div class="bdetail">Maple Leaf Lounge if Aeroplan, or Longos T1. Board 13:50.</div></div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR · AC61</span></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Seoul</div><div class="btime">10:30</div><div class="btitle">Bukchon Hanok Village</div><div class="bdetail">15 min walk from palace. Traditional alleyways. Free. <a href="https://maps.google.com/?q=Bukchon+Hanok+Village+Seoul" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">09:30</div><div class="btitle">Gardens by the Bay</div><div class="bdetail">Flower Dome + Cloud Forest. ~SGD 53. Book online night before. <a href="https://maps.google.com/?q=Gardens+by+the+Bay+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Pre-flight</div><div class="btime">11:30</div><div class="btitle">Ya Kun Kaya Toast · Changi</div><div class="bdetail">Last SG breakfast at airport. <a href="https://maps.google.com/?q=Ya+Kun+Kaya+Toast+Changi+Airport+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block bw"><div class="btype">Transit</div><div class="btime">10:30 WITA</div><div class="btitle">At Ngurah Rai Airport (DPS)</div><div class="bdetail">Check in SQ939 departing 13:15 WITA. Arrive early. <a href="https://maps.google.com/?q=Ngurah+Rai+International+Airport+Bali" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">10:30</div><div class="btitle">Sentosa or Orchard Rd</div><div class="bdetail">Palawan/Siloso beach, or ION Orchard + Takashimaya B1. <a href="https://maps.google.com/?q=Sentosa+Island+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Bavarian · Must-Do</div><div class="btime">07:30</div><div class="btitle">Viktualienmarkt Breakfast</div><div class="bdetail">Weisswurst + pretzel + Weissbier. ~€12. Opens 7am. <a href="https://maps.google.com/?q=Viktualienmarkt+Munich+Germany" target="_blank">↗ Maps</a></div></div></div>
 
 <!-- ════ ROW: LUNCH 13–15 ════ -->
 <div class="tc"><div class="tl">13–15</div></div>
-<div class="cell"><div class="block bf"><div class="btype">Flight 1/6 · AC061</div><div class="btime">13:50 EDT</div><div class="btitle">YYZ T1 → ICN T1</div><div class="bdetail">14h 40m · Boeing 787-9 · Seat 43H · Meal + Breakfast</div><div class="rtag">CN8KTC</div></div></div>
-<div class="cell in-air"><div class="air-label"><span>IN AIR · LANDS 17:30 KST</span></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Seoul · Last Meal</div><div class="btime">12:00</div><div class="btitle">Gwangjang Market</div><div class="bdetail">Bindaetteok + mayak gimbap + yukhoe. Cash only. ₩15–20k.</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Hawker · Lunch</div><div class="btime">12:30</div><div class="btitle">Lau Pa Sat + Satay Street</div><div class="bdetail">Victorian hawker hall · Charcoal satay. Opens noon. ~SGD 22.</div></div></div>
-<div class="cell"><div class="block bf"><div class="btype">Flight 3/6 · Scoot</div><div class="btime">14:00 SGT</div><div class="btitle">SIN → Bali (DPS)</div><div class="bdetail">2h 35m · Arrives 16:35 WITA</div></div></div>
-<!-- bali spanned -->
+<div class="cell"><div class="block bf"><div class="btype">Flight 1/6 · AC061</div><div class="btime">13:50 EDT</div><div class="btitle">YYZ T1 → Seoul ICN T1</div><div class="bdetail">14h 40m · 787-9 · Seat 43H · Meal + Breakfast · Wi-Fi</div><div class="rtag">CN8KTC</div></div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR → LANDS 17:30 KST</span></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Last Seoul Meal</div><div class="btime">12:00</div><div class="btitle">Gwangjang Market</div><div class="bdetail">Bindaetteok + mayak gimbap + yukhoe. Cash only. ₩15–20k. <a href="https://maps.google.com/?q=Gwangjang+Market+Seoul" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Hawker · Lunch</div><div class="btime">12:30</div><div class="btitle">Lau Pa Sat + Satay Street</div><div class="bdetail">Victorian hawker hall · Charcoal satay noon–midnight. ~SGD 22. <a href="https://maps.google.com/?q=Lau+Pa+Sat+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bf"><div class="btype">Flight 3/6 · Scoot</div><div class="btime">14:00 SGT</div><div class="btitle">SIN → Bali DPS</div><div class="bdetail">2h 35m · Arrives 16:35 WITA</div></div></div>
+<!-- Bali span covers May20-23 column here -->
 <div class="cell"><div class="block bf"><div class="btype">Flight 4/6 · SQ939</div><div class="btime">13:15 WITA</div><div class="btitle">DPS → SIN T3</div><div class="bdetail">2h 45m · Arrives 16:00 SGT · Singapore Airlines</div><div class="rtag">DFYVP9</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Farewell · Must-Do</div><div class="btime">13:00</div><div class="btitle">Chilli Crab — No Signboard</div><div class="bdetail">Whole Sri Lankan crab + mantou. Clarke Quay. ~SGD 110/person.</div></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Munich</div><div class="btime">09:00</div><div class="btitle">English Garden + Eisbach Surfers</div><div class="bdetail">River wave surfers · Chinesischer Turm beer garden opens 10am.</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Farewell · Must-Do</div><div class="btime">13:00</div><div class="btitle">Chilli Crab — No Signboard</div><div class="bdetail">Whole crab + mantou. Clarke Quay. ~SGD 110/person. <a href="https://maps.google.com/?q=No+Signboard+Seafood+Clarke+Quay+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Munich</div><div class="btime">09:00</div><div class="btitle">English Garden + Eisbach Surfers</div><div class="bdetail">River wave surfers. Chinesischer Turm beer garden 10am. <a href="https://maps.google.com/?q=Eisbach+Wave+English+Garden+Munich" target="_blank">↗ Maps</a></div></div></div>
 
 <!-- ════ ROW: AFTERNOON 15–19 ════ -->
 <div class="tc"><div class="tl">15–19</div></div>
 <div class="cell in-air"><div class="air-label"><span>IN AIR</span></div></div>
-<div class="cell"><div class="block bs"><div class="btype">Arrive · Seoul ICN T1</div><div class="btime">17:30 KST</div><div class="btitle">Land · AREX to city</div><div class="bdetail">AREX Express: ICN → Seoul Station (43 min, ₩11,000).</div></div></div>
-<div class="cell"><div class="block bs"><div class="btype">Transit · ⚠ LEAVE BY 13:00</div><div class="btime">13:00 KST</div><div class="btitle">AREX → ICN T1 → T2 shuttle</div><div class="bdetail">Seoul Stn → ICN T1 (43 min) → T2 shuttle (20 min).</div><div class="wtag">OZ751 departs 16:10 from T2</div></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">14:00</div><div class="btitle">MBS Skypark Observation</div><div class="bdetail">57F · 360° views · ~SGD 32. Walk Helix Bridge + waterfront after.</div></div></div>
+<div class="cell"><div class="block bs"><div class="btype">Arrive · Seoul ICN T1</div><div class="btime">17:30 KST</div><div class="btitle">Land · AREX to city</div><div class="bdetail">AREX Express: ICN → Seoul Station (43 min, ₩11,000). Buy T-money card at airport.</div></div></div>
+<div class="cell"><div class="block bs"><div class="btype">Transit · ⚠ LEAVE BY 13:00</div><div class="btime">13:00 KST</div><div class="btitle">AREX → ICN T1 → T2 shuttle</div><div class="bdetail">Seoul Stn → ICN T1 (43 min) → T2 shuttle (20 min). Check in by 13:30.</div><div class="wtag">OZ751 departs 16:10 from T2</div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">14:00</div><div class="btitle">MBS Skypark Observation Deck</div><div class="bdetail">57F · 360° views · ~SGD 32. Walk Helix Bridge + waterfront. <a href="https://maps.google.com/?q=Marina+Bay+Sands+Skypark+Singapore" target="_blank">↗ Maps</a></div></div></div>
 <div class="cell in-air"><div class="air-label"><span>IN AIR → BALI</span></div></div>
-<!-- bali spanned -->
-<div class="cell"><div class="block bd"><div class="btype">Arrive + Do · 16:00–19:30</div><div class="btime">16:00 SGT</div><div class="btitle">Check in · Marina Bay waterfront</div><div class="bdetail">Hotel by ~17:30. Walk to Merlion Park → Helix Bridge → Supertrees. <strong>Garden Rhapsody light show 19:45 (free).</strong></div></div></div>
-<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">15:00</div><div class="btitle">Haji Lane + Arab Street</div><div class="bdetail">Street murals, indie boutiques, Sultan Mosque. Kampong Glam.</div></div></div>
-<div class="cell"><div class="block bf"><div class="btype">Transit + Flight 6/6 · LH494</div><div class="btime">12:30 → 15:50 CET</div><div class="btitle">S-Bahn → MUC · Depart YYZ 🏠</div><div class="bdetail">Back to MUC (40 min) · Airbräu airside · LH494 departs 15:50 → YYZ 18:30 EDT</div><div class="rtag">CN8KTC</div></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block bsg"><div class="btype">Arrive + Do · SIN</div><div class="btime">16:00 SGT</div><div class="btitle">Land SIN T3 · Check in · Waterfront</div><div class="bdetail">Hotel by ~17:30. Walk Merlion Park → Helix Bridge → Supertrees. Garden Rhapsody light show <strong>19:45 free</strong>. <a href="https://maps.google.com/?q=Merlion+Park+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">14:00</div><div class="btitle">Haji Lane + Arab Street</div><div class="bdetail">Street murals, Sultan Mosque, indie boutiques. Kampong Glam. <a href="https://maps.google.com/?q=Haji+Lane+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bf"><div class="btype">Transit + Flight 6/6 · LH494</div><div class="btime">12:30 → 15:50 CET</div><div class="btitle">S-Bahn → MUC · Depart YYZ 🏠</div><div class="bdetail">Back to MUC (40 min) · Airbräu airside · Gate by 14:30 · LH494 departs 15:50 CET → YYZ 18:30 EDT</div><div class="rtag">CN8KTC</div></div></div>
 
 <!-- ════ ROW: EVENING 19–23 ════ -->
 <div class="tc"><div class="tl">19–23</div></div>
 <div class="cell in-air"><div class="air-label"><span>IN AIR</span></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · Seoul ⭐ BOOKED ✓</div><div class="btime">20:00 KST</div><div class="btitle">Born & Bred — Hanwoo Omakase</div><div class="bdetail">Basement speakeasy · 7 seats · Grade 9 BMS 1++ · ~₩380k.</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · ⭐ BOOKED ✓</div><div class="btime">20:00 KST</div><div class="btitle">Born & Bred — Hanwoo Omakase</div><div class="bdetail">Basement speakeasy · 7 seats · Grade 9 BMS 1++ · ~₩380k. <a href="https://maps.google.com/?q=Born+and+Bred+Restaurant+Seongdong+Seoul" target="_blank">↗ Maps</a></div></div></div>
 <div class="cell"><div class="block bf"><div class="btype">Flight 2/6 · OZ751</div><div class="btime">16:10 KST → 21:30 SGT</div><div class="btitle">ICN T2 → SIN T3</div><div class="bdetail">6h 20m · Asiana Airlines · A359 · Seat 37H</div><div class="rtag">CN8KTC</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · Michelin ⭐⭐⭐ BOOKED ✓</div><div class="btime">19:30</div><div class="btitle">Les Amis</div><div class="bdetail">3 Michelin stars · 1 Scotts Rd, Shaw Centre · 1 guest · Confirmed.</div></div></div>
-<div class="cell"><div class="block bb"><div class="btype">Arrive · Bali</div><div class="btime">16:35 WITA</div><div class="btitle">🌺 Arrive Bali — Wedding begins</div><div class="bdetail">No itinerary from here. Enjoy.</div></div></div>
-<!-- bali spanned -->
-<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · Comfort</div><div class="btime">19:30</div><div class="btitle">Maxwell Food Centre</div><div class="bdetail">Tian Tian Chicken Rice #10 + cold Tiger beer. ~SGD 18.</div></div></div>
-<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · Then Airport</div><div class="btime">18:30</div><div class="btitle">Candlenut — Peranakan</div><div class="bdetail">World's only Michelin Peranakan. Dempsey Hill. ~SGD 95/person.<br>⚠ Leave for Changi T2 by 20:30 — LH769 departs 22:45.</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · ⭐⭐⭐ BOOKED ✓</div><div class="btime">19:30</div><div class="btitle">Les Amis</div><div class="bdetail">3 Michelin stars · Shaw Centre, 1 Scotts Rd. <a href="https://maps.google.com/?q=Les+Amis+Restaurant+1+Scotts+Road+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bb"><div class="btype">Arrive · Bali</div><div class="btime">16:35 WITA</div><div class="btitle">🌺 Arrive Bali — Wedding begins</div><div class="bdetail">No itinerary from here. Enjoy every moment.</div></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · Comfort</div><div class="btime">19:30</div><div class="btitle">Maxwell Food Centre</div><div class="bdetail">Tian Tian Chicken Rice #10 + cold Tiger beer. ~SGD 18. <a href="https://maps.google.com/?q=Maxwell+Food+Centre+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Last Dinner · ⚠ Then Airport</div><div class="btime">18:30</div><div class="btitle">Candlenut — Peranakan</div><div class="bdetail">World's only Michelin Peranakan. ~SGD 95/person. <a href="https://maps.google.com/?q=Candlenut+Restaurant+Dempsey+Hill+Singapore" target="_blank">↗ Maps</a><br><strong>⚠ Leave for Changi T2 by 20:30 — LH769 22:45</strong></div></div></div>
 <div class="cell in-air"><div class="air-label"><span>LH494 IN AIR → YYZ</span></div></div>
 
 <!-- ════ ROW: NIGHT 23–06 ════ -->
+<!-- Night row: 9 cells needed — Bali span ends, need explicit placeholder -->
 <div class="tc"><div class="tl">Night</div></div>
 <div class="cell in-air"><div class="air-label"><span>IN AIR · AC61</span></div></div>
-<div class="cell"><div class="block bs"><div class="btype">Sleep · Seoul</div><div class="btitle">Jongno Stay or Zzzip Hostel</div><div class="bdetail">See Seoul tab. Dorm from ₩28–35k.</div><div class="wtag">Up by 08:00 — palace opens 09:00</div></div></div>
-<div class="cell"><div class="block bsg"><div class="btype">Arrive SIN · Late Supper</div><div class="btime">22:30</div><div class="btitle">Newton Food Centre</div><div class="bdetail">Open till 2am+. Satay + oyster omelette + BBQ stingray. ~SGD 28.</div></div></div>
-<div class="cell"><div class="block bw"><div class="btype">Note</div><div class="btitle">Pack for Bali tonight</div><div class="bdetail">Wedding outfit in carry-on. Scoot departs 14:00 May 19.</div></div></div>
+<div class="cell"><div class="block bs"><div class="btype">Sleep · Seoul</div><div class="btitle">Zzzip Guesthouse or Jongno Stay</div><div class="bdetail">★9.78 Hostelworld. See Seoul tab. Dorm from ₩28–35k.</div><div class="wtag">Up by 08:30 — palace at 09:00</div></div></div>
+<div class="cell"><div class="block bsg"><div class="btype">Arrive SIN · Late Supper</div><div class="btime">22:30</div><div class="btitle">Newton Food Centre</div><div class="bdetail">Open till 2am+. Satay + oyster omelette + BBQ stingray. ~SGD 28. <a href="https://maps.google.com/?q=Newton+Food+Centre+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bw"><div class="btype">Note</div><div class="btitle">Pack for Bali tonight</div><div class="bdetail">Wedding outfit in carry-on. Scoot departs 14:00 May 19 — leave hotel by 11:00.</div></div></div>
+<div class="cell bb"><div class="air-label"><span>BALI</span></div></div>
+<!-- Explicit Bali placeholder for night row -->
 <div class="cell bali-block"><div class="air-label"><span>BALI</span></div></div>
-<!-- bali spanned ends here — need explicit cell for night row -->
-<div class="cell"><div class="block bw"><div class="btype">Sleep · Singapore</div><div class="btitle">Early night — flight tomorrow 22:45</div><div class="bdetail">LH769 departs May 25 at 22:45. Full day in SG tomorrow.</div></div></div>
-<div class="cell"><div class="block bf"><div class="btype">Flight 5/6 · LH769</div><div class="btime">22:45 SGT</div><div class="btitle">SIN T2 → Munich MUC T2</div><div class="bdetail">12h 30m · A359 · Overnight · Arrives May 26 05:15 CET</div><div class="rtag">CN8KTC</div><div class="wtag">T2 — not T3 where SQ939 arrived</div></div></div>
-<div class="cell"><div class="block bw"><div class="btype">Home · YYZ</div><div class="btime">18:30 EDT</div><div class="btitle">Land Toronto Pearson T1</div><div class="bdetail">Welcome home.</div></div></div>
+<!-- May24 Night: Sleep SG (flight is tomorrow Mon May25) -->
+<div class="cell"><div class="block bsg"><div class="btype">Sleep · Singapore</div><div class="btitle">Wink Hostel / ST Signature</div><div class="bdetail">Land 16:00, check in. Full day tomorrow before LH769 22:45 Mon May 25.</div><div class="wtag">Book 3rd SG night: May 24</div></div></div>
+<!-- May25 Night: LH769 departs 22:45 SGT MON MAY 25 -->
+<div class="cell"><div class="block bf"><div class="btype">Flight 5/6 · LH769</div><div class="btime">22:45 SGT</div><div class="btitle">SIN T2 → Munich MUC T2</div><div class="bdetail">12h 30m · A359 · Overnight · Arrives Tue May 26 05:15 CET</div><div class="rtag">CN8KTC</div><div class="wtag">Depart T2 — not T3 where SQ939 arrived</div></div></div>
+<!-- May26 Night: Land YYZ 18:30 EDT -->
+<div class="cell"><div class="block bw"><div class="btype">Home · YYZ</div><div class="btime">18:30 EDT</div><div class="btitle">Land Toronto Pearson T1 🏠</div><div class="bdetail">Welcome home. LH494 from MUC 15:50 → YYZ 18:30 EDT.</div></div></div>
 
-</div>
-</div>
-</div>
+</div><!-- /grid -->
+</div><!-- /grid-wrap -->
+</div><!-- /view#grid -->
+
 <!-- ════════════════ SEOUL ════════════════ -->
 <div class="view" id="seoul">
 <div class="panel">
   <div class="ptitle">🇰🇷 Seoul — 24h (May 16–17)</div>
+
+  <div class="psub">♨ Jjimjilbang — Korean Bathhouse · Must-Do</div>
+
+  <div class="pc" style="border-left:3px solid #a040a0;">
+    <div class="pch">What it is <span class="badge" style="background:rgba(160,64,160,0.15);color:#d080d0;border:1px solid rgba(160,64,160,0.3);">Bucket List</span></div>
+    <div class="pcb">A jjimjilbang (찜질방) is a 24-hour Korean wellness complex — bathhouse + multiple themed saunas + sleeping room + food court. Entry ₩7,000–15,000. You get cotton pyjamas (jjimjilbok), a locker key, and full access. Naked in the gender-separated bathing pools (fully normal, nobody stares — you'll get used to it in 30 seconds), clothed in the shared sauna/lounge areas. Get the body scrub (세신, seshin) — an attendant scrubs off your entire outer layer of dead skin with a coarse mitt. Sounds brutal, feels incredible. ~₩25,000 add-on. Eat hard-boiled eggs and sikhye (sweet rice drink) after — a Korean spa tradition.</div>
+  </div>
+
+  <div class="pc" style="border-left:3px solid #d4af37;"><div class="pch">Siloam Bulgama Sauna <span class="badge btp">Best for Tourists · 6 Floors · 3,000 Capacity</span></div>
+  <div class="pcb"><strong>Best overall jjimjilbang for first-time foreign visitors.</strong> 6 floors covering every kind of sauna — charcoal room, clay room, salt room, Himalayan salt crystal room, ice room, and multiple hot pool temperatures. 24 hours, can sleep overnight (perfect if you want to skip the hostel May 16 and save money). Near Seoul Station — easy AREX connection. Foreigner-friendly, English signage, huge and lively without feeling sterile.<br>
+  <strong>Best time to go:</strong> May 16 evening after arriving ICN (it's open 24h — go before or after dinner).<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Siloam+Sauna+Seoul+Station" target="_blank">253 Seosomun-ro, Jung-gu</a> · Near Seoul Station · ₩12,000–15,000 · 24h</span></div></div>
+
+  <div class="pc" style="border-left:3px solid #a040a0;"><div class="pch">Insadong Hanjeungmak <span class="badge btp">Most Atmospheric · Near Palace</span></div>
+  <div class="pcb">Traditional Korean pine-heated sauna near Anguk Station — the closest jjimjilbang to Gyeongbokgung Palace. Heated by real yellow archer stones and pine wood in a fireplace, not electric elements. The traditional Korean body scrub here is the standout — deep exfoliation, skin feels silky for days. Smaller, more local crowd, intimate atmosphere.<br>
+  <strong>Best time to go:</strong> May 17 morning before or after the palace (opens early).<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Insadong+Hanjeungmak+Seoul" target="_blank">36 Yulgok-ro 6-gil, Jongno-gu B1</a> · Near Anguk Station · ₩10,000–13,000</span></div></div>
+
+  <div class="pc" style="border-left:3px solid #a040a0;"><div class="pch">Dragon Hill Spa <span class="badge bhs">Most Famous · 8 Floors · Near Itaewon</span></div>
+  <div class="pcb">Seoul's most famous jjimjilbang — 8 floors including movie theatre, arcade, rooftop garden, and crystal salt sauna. Popular with foreign visitors given the Itaewon location and English signage. Good if you want a big, buzzy, resort-like experience. Open 24h. Good pre- or post-Born & Bred dinner option (both in Yongsan area).<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Dragon+Hill+Spa+Seoul+Yongsan" target="_blank">40 Hangang-daero 21-gil, Yongsan-gu</a> · Near Yongsan Station · ₩12,000–18,000 · 24h</span></div></div>
 
   <div class="psub">⏱ Timeline Snapshot</div>
   <div class="pc"><div class="pcb" style="font-size:10px;line-height:2.1;">
@@ -362,7 +391,8 @@ a{color:var(--gold);}
     <strong>19:30</strong> — Check in hostel (Jongno Stay or Zzzip)<br>
     <strong>20:00</strong> — <strong>Born & Bred basement omakase · BOOKED ✓</strong><br>
     <strong>Late</strong> — Optional: Hongdae night scene / bars<br>
-    <strong>May 17 09:00</strong> — Gyeongbokgung Palace (guard change 10am, ₩3,000)<br>
+    <strong>May 17 09:00</strong> — <em>Optional:</em> JINS Sinchon/Hongdae (10 min, opens 10am) OR head straight to palaces<br>
+    <strong>09:30</strong> — Gyeongbokgung Palace (guard change 10am, ₩3,000)<br>
     <strong>10:30</strong> — Bukchon Hanok Village (15 min walk, free)<br>
     <strong>11:30</strong> — Insadong · Ssamziegil courtyard<br>
     <strong>12:00</strong> — Gwangjang Market: bindaetteok + mayak gimbap (₩15–20k, cash only)<br>
@@ -375,25 +405,25 @@ a{color:var(--gold);}
   <div class="att-card">
     <div class="pch">Gyeongbokgung Palace <span class="badge btp">Start Here · 09:00</span></div>
     <div class="pcb">The grand Joseon dynasty palace — Korea's most iconic sight. Huge ceremonial courtyards, traditional architecture, and the famous <strong>Changing of the Guard ceremony at 10am and 2pm</strong>. Get there right at 9am before the crowds arrive. Allow 1.5h.<br>
-    <span class="price">📍 161 Sajik-ro, Jongno-gu · ₩3,000 · Opens 9am · Closed Tue</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Gyeongbokgung+Palace+Seoul" target="_blank">161 Sajik-ro, Jongno-gu</a> · ₩3,000 · Opens 9am · Closed Tue</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Bukchon Hanok Village <span class="badge btp">15min Walk from Palace</span></div>
     <div class="pcb">A neighbourhood of 600+ traditional Korean hanok houses on winding hillside alleys — one of the most photographed streetscapes in Asia. Completely free, no entry required. Most beautiful in the early morning light. Walk north from the palace along Bukchon-ro.<br>
-    <span class="price">📍 Gye-dong, Jongno-gu · Free · 15 min walk from palace</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Bukchon+Hanok+Village+Seoul" target="_blank">Gye-dong, Jongno-gu</a> · Free · 15 min walk from palace</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Insadong + Ssamziegil <span class="badge btp">After Bukchon</span></div>
     <div class="pcb">Seoul's artisan district — pottery, calligraphy, Korean tea houses, street food. <strong>Ssamziegil</strong> is a spiral courtyard with indie designers, food stalls, and live performances. Great for a quick 45-min browse before heading to lunch.<br>
-    <span class="price">📍 Insadong-gil, Jongno-gu · Free to walk · 10 min from Bukchon</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Insadong+Seoul" target="_blank">Insadong-gil, Jongno-gu</a> · Free to walk · 10 min from Bukchon</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Gwangjang Market <span class="badge btp">Last Meal Before ICN · 12:00</span></div>
     <div class="pcb">Korea's oldest continuously operating market (1905). Go straight to the indoor food hall — <strong>bindaetteok</strong> (mung bean pancakes, fried tableside), <strong>mayak gimbap</strong> (tiny rice rolls, addictive), <strong>yukhoe</strong> (beef tartare). One of the best food experiences in Seoul. Cash only, busy, worth it.<br>
-    <span class="price">📍 88 Changgyeonggung-ro, Jongno-gu · ₩10,000–20,000 · Cash only</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Gwangjang+Market+Seoul" target="_blank">88 Changgyeonggung-ro, Jongno-gu</a> · ₩10,000–20,000 · Cash only</span></div>
   </div>
 
   <div class="att-card">
@@ -402,14 +432,34 @@ a{color:var(--gold);}
     <span class="price">📍 Hongdae, Mapo-gu · Free to walk · Bars ₩10,000–20,000/drink</span></div>
   </div>
 
-  <div class="psub">🏨 Hostels — Safe, Clean, Solo Male</div>
-  <div class="pc"><div class="pch">Jongno Stay <span class="badge bhs">Top Pick</span></div>
-  <div class="pcb"><strong>Best location for 1-day itinerary.</strong> Capsule-style pods, free breakfast, key card access, spotless. 5-min walk to Gyeongbokgung Palace and Bukchon. Quiet neighbourhood. Jonggak Station (Line 1) for AREX connection.<br>
-  <span class="price">📍 Jongno-gu · Dorm ₩35,000 / Private ₩90,000 (~CAD $35–100)</span></div></div>
+  <div class="psub">🏨 Hostels — Verified Safe, Solo Male · Affluent Crowd</div>
 
-  <div class="pc"><div class="pch">Zzzip Guesthouse — Hongdae</div>
-  <div class="pcb">4-min walk from Hapjeong Station, 10 min from Hongdae nightlife. Free breakfast + laundry. Clean mixed dorms, personal lockers. Best if you want the evening bar scene. ~25 min by subway to palaces.<br>
-  <span class="price">📍 Mapo-gu, Hongdae · Dorm ₩28,000 (~CAD $30)</span></div></div>
+  <div class="pc" style="border-left:3px solid #d4af37;"><div class="pch">Zzzip Guesthouse — Hongdae <span class="badge btp">★ 9.78/10 on Hostelworld</span></div>
+  <div class="pcb"><strong>Highest-rated hostel in Seoul by verified travellers.</strong> Run by a couple (Jina and Brian) who treat every guest like family — adds you to a WhatsApp group to meet other guests, gives insider tips, and organises hangouts. Free breakfast, free laundry, free Wi-Fi. Hongdae location = Seoul's youth and indie culture epicentre, safe 24h, international crowd of young travellers and creatives. Not loud dorm-party vibes — comfortable and social.<br>
+  <strong>Best if:</strong> You want to meet people and experience Hongdae nightlife after Born & Bred dinner. 25 min subway to palaces next morning.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Zzzip+Guesthouse+Hongdae+Seoul" target="_blank">Hongdae, Mapo-gu</a> · Dorm ₩28,000–35,000 (~CAD $30–38) · hostelworld.com</span></div></div>
+
+  <div class="pc"><div class="pch">Jongno Stay — Jongno-gu <span class="badge bhs">Best for Culture + Palaces</span></div>
+  <div class="pcb">Capsule-style private pods, spotless, free breakfast, key card access. <strong>5-min walk to Gyeongbokgung Palace</strong> — ideal if maximising cultural sightseeing on your one morning. Jonggak Station (Line 1, 2 stops to City Hall) for easy AREX connection to ICN. Quieter crowd — locals, culture travellers, less party-focused. Good pick if you prefer less social, more rested.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Jongno+Stay+Hostel+Seoul" target="_blank">Jongno-gu</a> · Dorm ₩35,000 / Private ₩90,000 (~CAD $35–100) · hostelworld.com</span></div></div>
+
+  <div class="pc"><div class="pch">Time Travelers Relax Guesthouse — Hongdae <span class="badge bhs">Most Character</span></div>
+  <div class="pcb">Owner-painted murals throughout, book exchange, cosy common area — the "chilled older sibling" of the party hostel. Free laundry, free Wi-Fi, air conditioning. Popular with 20–30s travellers who want social atmosphere without the noise. <strong>5-min walk from Hongdae subway.</strong> Well-reviewed by solo male travellers for safety and staff helpfulness.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Time+Travelers+Relax+Guesthouse+Hongdae+Seoul" target="_blank">Hongdae, Mapo-gu</a> · Dorm ₩30,000–38,000 (~CAD $32–41)</span></div></div>
+
+  <div class="pc" style="background:rgba(200,148,42,0.06);border:1px dashed rgba(200,148,42,0.2);"><div class="pch">💡 Mark's Recommendation</div>
+  <div class="pcb"><strong>For your itinerary: Zzzip Guesthouse.</strong> Born & Bred dinner is in Seongdong (Majang area) — 20 min taxi to Zzzip in Hongdae. After dinner you can walk into Hongdae's bar scene. Next morning: 25 min subway to Gyeongbokgung. Rating of 9.78/10 from thousands of verified reviews is exceptional and rare.</div></div>
+
+  <div class="psub">👓 JINS Eyewear — Buy Glasses in Seoul</div>
+
+  <div class="pc" style="border-left:3px solid #60b0e8;"><div class="pch">JINS Seoul — ION-equivalent: Myeongdong or Sinchon Branch <span class="badge" style="background:rgba(96,176,232,0.15);color:#60b0e8;border:1px solid rgba(96,176,232,0.3);">Tokyo Design · Buy Here</span></div>
+  <div class="pcb"><strong>JINS does not have Singapore stores — Seoul is the right place to buy.</strong> As Japan's #1 eyewear brand, frames + prescription lenses start from ₩30,000–59,000 (~CAD $33–65). Ready in 30–60 min. Bring your current prescription or get a free eye exam in-store.<br><br>
+  <strong>Best Seoul locations close to your itinerary:</strong><br>
+  • <strong>Myeongdong</strong> — 10 min subway from Jongno Stay (Line 4, 2 stops). Heavy foot traffic, young local + tourist crowd. Open 10am–10pm.<br>
+  • <strong>Sinchon/Hongdae area</strong> — Walking distance from Zzzip Guesthouse. Student area, very local vibe.<br><br>
+  <strong>Plan:</strong> Visit May 16 evening after arriving (before dinner) or May 17 morning (09:30–10:30, on way to palace). Pick up same day if simple prescription — or arrange to collect before 13:00 departure.<br><br>
+  ⚠ <strong>If prescription is complex</strong> (strong astigmatism, progressives), allow 1–3 hours. Factor into your 13:00 departure deadline.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=JINS+Myeongdong+Lotte+Young+Plaza+Seoul" target="_blank">Myeongdong: JINS Lotte Young Plaza</a>, 81 Namdaemun-ro · Sinchon: JINS Hyundai Dept Store · jins.com/kr/en · From ₩30,000 incl. lenses</span></div></div>
 
   <div class="psub">🥩 Born & Bred — Hanwoo Omakase · BOOKED ✓</div>
   <div class="pc" style="border-left:3px solid #d4af37;"><div class="pch" style="color:#d4af37;">Born & Bred — Basement Speakeasy</div>
@@ -419,11 +469,11 @@ a{color:var(--gold);}
   <div class="psub">🎬 Culinary Class Wars Restaurants</div>
   <div class="pc"><div class="pch">SOIGNÉ — Chef Jun Lee <span class="badge bn">CCW Season 2</span> <span class="badge bmc">Michelin</span></div>
   <div class="pcb">Tasting menu only. Signature: Hanwoo and Banchans. "Now South Korean customers book so quickly that foreign visitors often can't get tables." Book via <strong>CATCHTABLE</strong> immediately.<br>
-  <span class="price">📍 Gangnam · ~₩200,000–300,000/person</span></div></div>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Soigne+Restaurant+Gangnam+Seoul" target="_blank">Gangnam</a> · ~₩200,000–300,000/person</span></div></div>
 
   <div class="pc"><div class="pch">Table for Four — Chef Kim Sung-woon <span class="badge bn">CCW Season 1</span></div>
   <div class="pcb">Intimate seasonal Korean fine dining. Reservations tripled post-show. Book via CATCHTABLE.<br>
-  <span class="price">📍 Seoul · ~₩150,000–200,000/person</span></div></div>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Table+for+Four+Restaurant+Seoul" target="_blank">Seoul</a> · ~₩150,000–200,000/person</span></div></div>
 
   <div class="psub">🥩 Hanwoo — Korea's Wagyu</div>
   <div class="pc"><div class="pcb">Korean native cattle — legally protected, cannot be exported. Marbling rivals Japanese Wagyu with a deeper, slightly sweeter flavour. Graded 1++ (highest) to 3. <strong>You can only eat it in Korea.</strong> Best cuts: Kkot-deungsim (ribeye), Chae-kkeut-sal (chuck flap), Anshim (tenderloin).</div></div>
@@ -434,14 +484,14 @@ a{color:var(--gold);}
 <div class="view" id="sg">
 <div class="panel">
   <div class="ptitle">🇸🇬 Singapore — May 17–19 + 24–25</div>
-  <div class="pcb" style="margin-bottom:12px;font-size:10px;">Arrive <strong>May 17 at 21:30</strong>. First full day: <strong>May 18</strong>. Fly to Bali <strong>May 19 at 14:00</strong>. Return <strong>May 24 at 16:00</strong>. Fly home <strong>May 25 at 22:45.</strong></div>
+  <div class="pcb" style="margin-bottom:12px;font-size:10px;">Arrive <strong>May 17 at 21:30</strong>. First full day: <strong>May 18</strong>. Fly to Bali <strong>May 19 at 14:00</strong>. Return from Bali <strong>May 24 at 16:00</strong>. Full day May 25. <strong>LH769 departs 22:45 Mon May 25.</strong></div>
 
   <div class="psub">🗺 Things To Do · Attractions</div>
 
   <div class="att-card">
     <div class="pch">Gardens by the Bay <span class="badge btp">May 18 Morning · Must-Book</span></div>
     <div class="pcb">World's largest glass greenhouse (Flower Dome) + a 35m indoor waterfall inside a mountain (Cloud Forest). Genuinely jaw-dropping. Go 9:30am before the heat and crowds. Book online the night before.<br>
-    <span class="price">📍 18 Marina Gardens Dr · ~SGD 53 for both domes · Book at gardensbythebay.com.sg</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Gardens+by+the+Bay+Singapore" target="_blank">18 Marina Gardens Dr</a> · ~SGD 53 for both domes · Book at gardensbythebay.com.sg</span></div>
   </div>
 
   <div class="att-card">
@@ -452,64 +502,97 @@ a{color:var(--gold);}
   <div class="att-card">
     <div class="pch">Marina Bay Sands Skypark Observation Deck <span class="badge btp">May 18 Afternoon</span></div>
     <div class="pcb">57th-floor observation deck — best 360° views in Singapore. Book timed entry online. Note: the infinity pool is <strong>hotel guests only</strong> — this is the observation deck. After, walk the <strong>Helix Bridge</strong> and stroll the waterfront to Merlion Park.<br>
-    <span class="price">📍 10 Bayfront Ave · ~SGD 32 · Book at marinabaysands.com</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Marina+Bay+Sands+Singapore" target="_blank">10 Bayfront Ave</a> · ~SGD 32 · Book at marinabaysands.com</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Lau Pa Sat + Satay Street <span class="badge btp">May 18 Lunch</span></div>
     <div class="pcb">Historic 1894 Victorian cast-iron hawker hall in the CBD. At noon, <strong>Satay Street</strong> (Boon Tat St) opens — 100m of charcoal-grilled satay stalls, peanut sauce, ketupat rice cakes. Get chendol for dessert.<br>
-    <span class="price">📍 18 Raffles Quay, CBD · ~SGD 20–25</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Lau+Pa+Sat+Singapore" target="_blank">18 Raffles Quay, CBD</a> · ~SGD 20–25</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Haji Lane + Arab Street <span class="badge btp">May 25 Afternoon</span></div>
     <div class="pcb">SG's most photogenic street — pastel shophouses, indie boutiques, street murals, Middle Eastern cafés. <strong>Sultan Mosque</strong> is stunning. Great for a stroll and photos. Easy afternoon before heading to Candlenut for dinner.<br>
-    <span class="price">📍 Kampong Glam area · Free to walk</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Haji+Lane+Singapore" target="_blank">Kampong Glam area</a> · Free to walk</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Chinatown Night Walk <span class="badge btp">May 17 Evening · After Landing</span></div>
     <div class="pcb">After landing at 21:30 and getting to the hotel, Chinatown is right there. Wander Pagoda St, Smith St, Temple St — night markets, street food, lanterns. <strong>Buddha Tooth Relic Temple</strong> is lit up beautifully at night. Zero effort, high atmosphere.<br>
-    <span class="price">📍 Smith St, Chinatown · Free</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Chinatown+Singapore+Pagoda+Street" target="_blank">Smith St, Chinatown</a> · Free</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Sentosa Island — Beach <span class="badge btp">May 25 Morning</span></div>
     <div class="pcb">25 min from city by MRT (Harbourfront → Sentosa Express). <strong>Palawan Beach</strong> or <strong>Siloso Beach</strong> — sunbed, swim, cold drink. Relaxed wind-down before the long haul home. Perfect if beached-out from Bali is not a concern.<br>
-    <span class="price">📍 Sentosa Island · MRT SGD 4 return · Free to walk beaches</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Palawan+Beach+Sentosa+Singapore" target="_blank">Sentosa Island</a> · MRT SGD 4 return · Free to walk beaches</span></div>
   </div>
 
   <div class="psub">🏨 Hotels</div>
   <div class="pc"><div class="pch">Parkroyal Collection Pickering ★★★★★ <span class="badge btp">Top Pick</span></div>
-  <div class="pcb">Sky gardens, infinity pool, iconic architecture. CBD/Chinatown. Request late checkout May 25 for the 22:45 flight. Book all 3 nights.<br><strong>📍 3 Upper Pickering St · ~SGD 380–450/night</strong></div></div>
+  <div class="pcb">Sky gardens, infinity pool, iconic architecture. CBD/Chinatown. Request late checkout May 25 for the 22:45 flight. Book all 3 nights.<br><strong>📍 <a href="https://maps.google.com/?q=Parkroyal+Collection+Pickering+Singapore" target="_blank">3 Upper Pickering St</a> · ~SGD 380–450/night</strong></div></div>
   <div class="pc"><div class="pch">Marina Bay Sands ★★★★★ <span class="badge btp">Splurge · Pool Access</span></div>
-  <div class="pcb">The only way to access the rooftop infinity pool. If you're going to spend once, this is it. Sky Park pool at 57F, views over the entire skyline.<br><strong>📍 10 Bayfront Ave · ~SGD 550–800/night</strong></div></div>
+  <div class="pcb">The only way to access the rooftop infinity pool. If you're going to spend once, this is it. Sky Park pool at 57F, views over the entire skyline.<br><strong>📍 <a href="https://maps.google.com/?q=Marina+Bay+Sands+Singapore" target="_blank">10 Bayfront Ave</a> · ~SGD 550–800/night</strong></div></div>
   <div class="pc"><div class="pch">The Warehouse Hotel ★★★★</div>
-  <div class="pcb">1900s spice warehouse, Robertson Quay. Boutique, river views, excellent bar.<br><strong>~SGD 280–360/night · 📍 320 Havelock Rd</strong></div></div>
+  <div class="pcb">1900s spice warehouse, Robertson Quay. Boutique, river views, excellent bar.<br><strong>~SGD 280–360/night · 📍 <a href="https://maps.google.com/?q=Warehouse+Hotel+Robertson+Quay+Singapore" target="_blank">320 Havelock Rd</a></strong></div></div>
 
   <div class="psub">🛏 Hostels — Solo Male · Near Marina Bay</div>
   <div class="pc"><div class="pch">Wink Hostel (Upper Cross St) <span class="badge bhs">Closest to MBS</span></div>
   <div class="pcb">Heritage shophouse in Downtown SG. Walking distance from Raffles Place MRT and ~20min walk to Marina Bay Sands. Boutique flashpacker pods, social bar/café onsite.<br><span class="price">📍 Upper Cross St · Dorm ~SGD 35–45/night</span></div></div>
   <div class="pc"><div class="pch">River City Inn (Clarke Quay) <span class="badge bhs">Best Vibe</span></div>
-  <div class="pcb">Riverside, walking distance to Chinatown and MBS. Incl. breakfast. No curfew. Highest-rated solo hostel in SG.<br><span class="price">📍 Clarke Quay · Dorm ~SGD 30–38/night</span></div></div>
+  <div class="pcb">Riverside, walking distance to Chinatown and MBS. Incl. breakfast. No curfew. Highest-rated solo hostel in SG.<br><span class="price">📍 <a href="https://maps.google.com/?q=River+City+Inn+Clarke+Quay+Singapore" target="_blank">Clarke Quay</a> · Dorm ~SGD 30–38/night</span></div></div>
   <div class="pc"><div class="pch">ST Signature Tanjong Pagar <span class="badge bhs">Best Value</span></div>
-  <div class="pcb">Heritage CBD building. 5 min from Tanjong Pagar MRT, 15 min walk to Marina Bay waterfront. Same street as Maxwell FC and Candlenut area.<br><span class="price">📍 Tanjong Pagar · Dorm ~SGD 32–40 / Private ~SGD 90–130</span></div></div>
+  <div class="pcb">Heritage CBD building. 5 min from Tanjong Pagar MRT, 15 min walk to Marina Bay waterfront. Same street as Maxwell FC and Candlenut area.<br><span class="price">📍 <a href="https://maps.google.com/?q=ST+Signature+Tanjong+Pagar+Singapore" target="_blank">Tanjong Pagar</a> · Dorm ~SGD 32–40 / Private ~SGD 90–130</span></div></div>
   <div class="pc"><div class="pch">Cube Boutique Capsule (Chinatown)</div>
-  <div class="pcb">Restored shophouse. Rainfall showers, bar on-site. 15 min walk to MBS.<br><span class="price">📍 Chinatown · ~SGD 45–65/capsule</span></div></div>
+  <div class="pcb">Restored shophouse. Rainfall showers, bar on-site. 15 min walk to MBS.<br><span class="price">📍 <a href="https://maps.google.com/?q=Cube+Boutique+Capsule+Hotel+Chinatown+Singapore" target="_blank">Chinatown</a> · ~SGD 45–65/capsule</span></div></div>
   <div class="pc"><div class="pch">The POD Boutique Capsule (Bugis)</div>
-  <div class="pcb">No-frills, clean, solo-traveller favourite. 20 min MRT to Marina Bay.<br><span class="price">📍 Bugis · ~SGD 28–35/dorm</span></div></div>
+  <div class="pcb">No-frills, clean, solo-traveller favourite. 20 min MRT to Marina Bay.<br><span class="price">📍 <a href="https://maps.google.com/?q=The+POD+Boutique+Capsule+Hostel+Bugis+Singapore" target="_blank">Bugis</a> · ~SGD 28–35/dorm</span></div></div>
+
+  <div class="psub">♨ Onsen + Bathhouses — Singapore</div>
+
+  <div class="pc" style="border-left:3px solid #a040a0;">
+    <div class="pch">Singapore vs Korea Bathhouse Culture</div>
+    <div class="pcb">Singapore doesn't have jjimjilbangs — but has a thriving Japanese-inspired onsen scene, the best in Southeast Asia. Unlike the Korean communal naked bathing culture, Singapore onsens are a mix of communal (gender-separated, nude) and private rooms. Crowd skews young professionals, expats, and couples. Much more upscale and quieter than Korean jjimjilbangs.</div>
+  </div>
+
+  <div class="pc" style="border-left:3px solid #d4af37;"><div class="pch">Yunomori Onsen & Spa · Kallang <span class="badge btp">Southeast Asia's First · Most Authentic</span></div>
+  <div class="pcb"><strong>The closest thing to a Japanese onsen in SG.</strong> Gender-separated communal pools (naked, like Japan) — jet bath, silk bath, soda bath, cold plunge, sauna. After soaking, meet in the Yunomori Cafe for ramen and Japanese fare. Very popular with young local professionals and expats. 15 min MRT from CBD (Stadium Station, Circle Line). Easy fit into May 25 afternoon before Candlenut dinner.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Yunomori+Onsen+Kallang+Wave+Mall+Singapore" target="_blank">Kallang Wave Mall, 1 Stadium Pl #02-17/18</a> · ~SGD 45–49 day pass · 10am–10pm</span></div></div>
+
+  <div class="pc" style="border-left:3px solid #a040a0;"><div class="pch">G.Spa · Guillemard Road <span class="badge bhs">24 Hours · Best Value</span></div>
+  <div class="pcb">Open 24 hours — ideal if arriving late May 24 and want to decompress after the Bali wedding. SGD $72 covers unlimited access to hot pool, cold pool, steam bath, sauna, relaxation lounge, and <strong>unlimited food and drinks</strong> at their dining cove (free-flow hot food, fresh fruit, cold-pressed juices). Marble-inspired interiors, opulent for the price. Popular with night-owl locals. Foot bath from SGD $30.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=G+Spa+Singapore+102+Guillemard+Road" target="_blank">102 Guillemard Road, #02-02</a> · ~SGD 72 full-day (incl. food) · 24 hours</span></div></div>
+
+  <div class="pc" style="border-left:3px solid #a040a0;"><div class="pch">Ikeda Spa · Bukit Timah <span class="badge bhs">Most Prestigious · First Japanese Spa SG</span></div>
+  <div class="pcb">Singapore's first authentic Japanese spa (since 2009), 40+ spa awards. Hinoki cypress wood onsen baths — the same wood used in Japanese imperial temples. Has a Zen garden with tea ceremony. More of a private/couples spa experience than communal — private Hinoki onsen room from SGD $100 (30 min). Best if you want a quiet, premium solo spa session rather than communal pools.<br>
+  <span class="price">📍 <a href="https://maps.google.com/?q=Ikeda+Spa+787+Bukit+Timah+Road+Singapore" target="_blank">787 Bukit Timah Road</a> · From SGD $100/30min private · 40+ awards</span></div></div>
+
+  <div class="pc" style="background:rgba(200,148,42,0.06);border:1px dashed rgba(200,148,42,0.2);"><div class="pch">💡 Best fit for your itinerary</div>
+  <div class="pcb"><strong>May 24 evening</strong> (after landing 16:00, before Maxwell dinner): G.Spa — open 24h, near CBD, low-key wind-down after the wedding.<br><strong>May 25 afternoon</strong> (after Sentosa/Orchard, before Candlenut at 18:30): Yunomori Kallang — 2–3h soak, shower, head straight to dinner fresh.</div></div>
+
+  <div class="psub">👓 OWNDAYS — Japanese Eyewear (Singapore's JINS Equivalent)</div>
+
+  <div class="pc" style="border-left:3px solid #60b0e8;"><div class="pch">OWNDAYS Singapore — Raffles City or ION Orchard <span class="badge" style="background:rgba(96,176,232,0.15);color:#60b0e8;border:1px solid rgba(96,176,232,0.3);">JINS Equivalent · 30 Stores SG</span></div>
+  <div class="pcb"><strong>JINS does not have stores in Singapore.</strong> OWNDAYS is the direct Japanese equivalent — same concept (Tokyo-designed frames, lenses included in price, ready in 20 min), same price range, and actually larger in Singapore with 30+ locations island-wide. Popular with young local professionals and expats. You wouldn't be able to tell the difference from the JINS experience in terms of quality and speed.<br><br>
+  <strong>Best locations close to your hostel (May 18, after Gardens by the Bay):</strong><br>
+  • <strong>Raffles City</strong> — #B1-41, 252 North Bridge Road. 5 min walk from City Hall MRT. Open 11am–10pm. Best option if staying in CBD area.<br>
+  • <strong>ION Orchard</strong> — #B2-69, 2 Orchard Turn. On the way to/from Les Amis (1 Scotts Rd). Combine with pre-dinner browse on May 18.<br>
+  • <strong>Marina Bay Sands</strong> — #B2-117, The Shoppes. Walking distance from Gardens by the Bay — easiest to slot in after morning at the Gardens.<br><br>
+  <strong>Plan:</strong> Visit May 18 after MBS Skypark (~16:00–17:30) → OWNDAYS ION Orchard (~17:30–18:30, they can make glasses in 20 min) → Les Amis dinner 19:30. If prescription needs longer, pick up May 25 before flying home.<br>
+  <span class="price">📍 <a href="https://www.owndays.com/sg/en/stores" target="_blank">30+ Singapore locations</a> · From SGD $98 incl. prescription lenses · owndays.com/sg/en</span></div></div>
 
   <div class="psub">🍽 Restaurants</div>
   <div class="pc"><div class="pch">Les Amis <span class="badge bmc">Michelin ⭐⭐⭐</span> <span class="badge btp">May 18 19:30 · BOOKED ✓</span></div>
-  <div class="pcb">One of only two 3-Michelin-star restaurants in Singapore. Classic French haute cuisine. Opened 1994 — one of Asia's most storied fine dining institutions.<br><strong>📍 1 Scotts Rd, #01-16 Shaw Centre · CONFIRMED</strong></div></div>
+  <div class="pcb">One of only two 3-Michelin-star restaurants in Singapore. Classic French haute cuisine. Opened 1994 — one of Asia's most storied fine dining institutions.<br><strong>📍 <a href="https://maps.google.com/?q=Les+Amis+Restaurant+1+Scotts+Road+Singapore" target="_blank">1 Scotts Rd, #01-16 Shaw Centre</a> · CONFIRMED</strong></div></div>
   <div class="pc"><div class="pch">Candlenut <span class="badge bmc">Michelin ⭐ Peranakan</span> <span class="badge btp">May 25 Dinner</span></div>
-  <div class="pcb">World's only Michelin-starred Peranakan restaurant. Buah keluak chicken curry, otah, blue ginger sambal. Book via Chope or direct.<br><strong>~SGD 85–110/person · 📍 Dempsey Hill</strong></div></div>
+  <div class="pcb">World's only Michelin-starred Peranakan restaurant. Buah keluak chicken curry, otah, blue ginger sambal. Book via Chope or direct.<br><strong>~SGD 85–110/person · 📍 <a href="https://maps.google.com/?q=Candlenut+Restaurant+Dempsey+Hill+Singapore" target="_blank">Dempsey Hill</a></strong></div></div>
   <div class="pc"><div class="pch">No Signboard Seafood — Chilli Crab <span class="badge btp">May 25 Lunch</span></div>
-  <div class="pcb">Whole Sri Lankan crab + mantou buns + black pepper crab. The non-negotiable SG farewell meal.<br><strong>~SGD 100–130/person · 📍 Clarke Quay</strong></div></div>
+  <div class="pcb">Whole Sri Lankan crab + mantou buns + black pepper crab. The non-negotiable SG farewell meal.<br><strong>~SGD 100–130/person · 📍 <a href="https://maps.google.com/?q=No+Signboard+Seafood+Clarke+Quay+Singapore" target="_blank">Clarke Quay</a></strong></div></div>
   <div class="pc"><div class="pch">Maxwell Food Centre <span class="badge btp">May 24 Dinner · Hawker</span></div>
-  <div class="pcb">Tian Tian Hainanese Chicken Rice (Stall #10). The definitive version of SG's national dish. Cold Tiger beer. Cash only.<br><strong>~SGD 15–20 · 📍 1 Kadayanallur St, Tanjong Pagar</strong></div></div>
+  <div class="pcb">Tian Tian Hainanese Chicken Rice (Stall #10). The definitive version of SG's national dish. Cold Tiger beer. Cash only.<br><strong>~SGD 15–20 · 📍 <a href="https://maps.google.com/?q=Maxwell+Food+Centre+Singapore" target="_blank">1 Kadayanallur St, Tanjong Pagar</a></strong></div></div>
   <div class="pc"><div class="pch">Newton Food Centre <span class="badge btp">May 17 Late Supper · Open 2am+</span></div>
-  <div class="pcb">Best late-night hawker in SG. Satay, BBQ stingray, oyster omelette, carrot cake. Cold Tiger beer. Perfect first SG meal after landing at 21:30.<br><strong>~SGD 25–35 · 📍 500 Clemenceau Ave North</strong></div></div>
+  <div class="pcb">Best late-night hawker in SG. Satay, BBQ stingray, oyster omelette, carrot cake. Cold Tiger beer. Perfect first SG meal after landing at 21:30.<br><strong>~SGD 25–35 · 📍 <a href="https://maps.google.com/?q=Newton+Food+Centre+Singapore" target="_blank">500 Clemenceau Ave North</a></strong></div></div>
   <div class="pc"><div class="pch">Killiney Kopitiam — Original 1919</div>
   <div class="pcb">Kaya toast + soft-boiled eggs + kopi-O. The original 1919 branch on Killiney Road. Non-negotiable SG morning ritual.<br><strong>~SGD 6 · 📍 67 Killiney Rd</strong></div></div>
 </div>
@@ -541,19 +624,19 @@ a{color:var(--gold);}
   <div class="att-card">
     <div class="pch">Marienplatz + Old Town <span class="badge btp">First Stop · S-Bahn arrives here</span></div>
     <div class="pcb">Munich's central square. <strong>Neues Rathaus Glockenspiel plays at 11am and noon</strong> — a 32-figure mechanical performance, try to time your visit. <strong>Frauenkirche</strong> twin-tower cathedral steps away. The entire old town is walkable in 1.5h from here.<br>
-    <span class="price">📍 Marienplatz, Altstadt · S-Bahn from MUC: 40 min, €13.60 day ticket</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Marienplatz+Munich+Germany" target="_blank">Marienplatz, Altstadt</a> · S-Bahn from MUC: 40 min, €13.60 day ticket</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Asamkirche — Hidden Baroque Masterpiece <span class="badge btp">Hidden Gem · Free · 5min Walk</span></div>
     <div class="pcb">Tucked away on Sendlinger Strasse, almost no tourists find this. Built by the Asam brothers in 1746 — ornate frescoes, intricate gold stucco work, gilded high altar, all crammed into a tiny space. One of the most beautiful interiors in Germany. Free entry, takes 15 min.<br>
-    <span class="price">📍 Sendlinger Str. 32 · Free · 5 min walk from Marienplatz</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Asamkirche+Munich+Germany" target="_blank">Sendlinger Str. 32</a> · Free · 5 min walk from Marienplatz</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Residenz Munich — Royal Palace <span class="badge btp">Best Indoor Sight</span></div>
     <div class="pcb">Former royal palace of the Bavarian monarchs — 130 rooms spanning Renaissance, Baroque, Rococo and Neoclassical architecture. One of the most significant art collections in Germany. If you only go inside one building in Munich, this is it.<br>
-    <span class="price">📍 Residenzstrasse 1, Altstadt · ~€9 · Opens 9am · 5 min from Marienplatz</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Residenz+Munich+Germany" target="_blank">Residenzstrasse 1, Altstadt</a> · ~€9 · Opens 9am · 5 min from Marienplatz</span></div>
   </div>
 
   <div class="att-card">
@@ -565,13 +648,13 @@ a{color:var(--gold);}
   <div class="att-card">
     <div class="pch">MUCA — Museum of Urban + Contemporary Art <span class="badge btp">Unexpected Gem</span></div>
     <div class="pcb">Right in Old Town, MUCA houses original works by Banksy, Shepard Fairey, Os Gemeos, and more — one of Europe's most extensive urban art collections. Three floors + the MUCA Bunker next door. A genuine surprise in a city famous for classical museums.<br>
-    <span class="price">📍 Near Marienplatz · ~€14</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=MUCA+Museum+Munich+Germany" target="_blank">Near Marienplatz</a> · ~€14</span></div>
   </div>
 
   <div class="att-card">
     <div class="pch">Isar River Banks — Local Secret <span class="badge btp">Off Tourist Trail</span></div>
     <div class="pcb">Walk south from the English Garden along the Isar riverbanks. In May the gravel beaches fill with locals sunbathing, swimming, and drinking beer. Completely off the tourist radar. Combine with a walk over <strong>Reichenbachbrücke bridge</strong> for the best city-meets-nature views.<br>
-    <span class="price">📍 Accessible from multiple S-Bahn stops · Free</span></div>
+    <span class="price">📍 <a href="https://maps.google.com/?q=Isar+River+Munich" target="_blank">Accessible from multiple S-Bahn</a> stops · Free</span></div>
   </div>
 
   <div class="att-card">
@@ -582,22 +665,22 @@ a{color:var(--gold);}
 
   <div class="psub">🍽 Munich Restaurants — Premium + Culturally Rare</div>
   <div class="pc"><div class="pch">Viktualienmarkt Weisswurst Breakfast <span class="badge btp">Most Authentic · 07:30</span></div>
-  <div class="pcb">Weisswurst + sweet mustard + pretzel + Weissbier. Munich is the only city where morning beer is culturally and legally correct. Weisswurst tradition: must be eaten before noon. Market opens 7am, steps from Marienplatz.<br><span class="price">📍 Marienplatz · ~€12</span></div></div>
+  <div class="pcb">Weisswurst + sweet mustard + pretzel + Weissbier. Munich is the only city where morning beer is culturally and legally correct. Weisswurst tradition: must be eaten before noon. Market opens 7am, steps from Marienplatz.<br><span class="price">📍 <a href="https://maps.google.com/?q=Viktualienmarkt+Munich+Germany" target="_blank">Marienplatz</a> · ~€12</span></div></div>
 
   <div class="pc"><div class="pch">Augustiner Bräustuben <span class="badge btp">Skip Hofbräuhaus — Go Here</span></div>
-  <div class="pcb">What Hofbräuhaus pretends to be. Same traditional hall setup, better beer, local crowd, half the noise. This is where Munich residents bring out-of-town friends for real beer hall culture without the tourist performance.<br><span class="price">📍 Landsberger Str. 19 · 15 min walk from Marienplatz</span></div></div>
+  <div class="pcb">What Hofbräuhaus pretends to be. Same traditional hall setup, better beer, local crowd, half the noise. This is where Munich residents bring out-of-town friends for real beer hall culture without the tourist performance.<br><span class="price">📍 <a href="https://maps.google.com/?q=Augustiner+Braustube+Landsberger+Strasse+Munich" target="_blank">Landsberger Str. 19</a> · 15 min walk from Marienplatz</span></div></div>
 
   <div class="pc"><div class="pch">Airbräu — MUC Airport Brewery <span class="badge btp">Back at Airport · Airside T2</span></div>
-  <div class="pcb">World's only airport microbrewery, right inside MUC T2 airside. Fresh-brewed Helles, Dunkel, seasonal lagers. Pork knuckle, pretzels. No re-security needed. One of the best airport food experiences in the world.<br><span class="price">📍 MUC Terminal 2 Airside · ~€25 · Opens 09:00</span></div></div>
+  <div class="pcb">World's only airport microbrewery, right inside MUC T2 airside. Fresh-brewed Helles, Dunkel, seasonal lagers. Pork knuckle, pretzels. No re-security needed. One of the best airport food experiences in the world.<br><span class="price">📍 <a href="https://maps.google.com/?q=Airbrau+Munich+Airport+Terminal+2" target="_blank">MUC Terminal 2 Airside</a> · ~€25 · Opens 09:00</span></div></div>
 
   <div class="pc"><div class="pch">Dallmayr Delicatessen</div>
   <div class="pcb">One of Europe's finest food halls, operating since the 1700s. Browse the ground floor — smoked fish, Bavarian cheeses, wines, chocolates. Steps from Marienplatz. Free to browse.<br><span class="price">📍 4 Dienerstrasse, Altstadt</span></div></div>
 
   <div class="pc"><div class="pch">Tohru in der Schreiberei <span class="badge bmc">Michelin ⭐⭐⭐</span> <span class="badge btp">Future Visit</span></div>
-  <div class="pcb">Munich's only 3-star — Chef Tohru Nakamura, Germany's only Japanese-German chef at this level. Japanese precision + Bavarian ingredients. Evening only, book months ahead. Note for a dedicated return visit.<br><span class="price">📍 Altstadt · ~€280–350/person incl. wine</span></div></div>
+  <div class="pcb">Munich's only 3-star — Chef Tohru Nakamura, Germany's only Japanese-German chef at this level. Japanese precision + Bavarian ingredients. Evening only, book months ahead. Note for a dedicated return visit.<br><span class="price">📍 <a href="https://maps.google.com/?q=Tohru+in+der+Schreiberei+Munich" target="_blank">Altstadt</a> · ~€280–350/person incl. wine</span></div></div>
 
   <div class="pc"><div class="pch">Tantris <span class="badge bmc">Michelin ⭐⭐</span> <span class="badge btp">Future Visit</span></div>
-  <div class="pcb">Founded 1971 — birthplace of German fine dining. Iconic 1970s architecture, cult status. Evening only, book ahead.<br><span class="price">📍 Schwabing · ~€150–220/person</span></div></div>
+  <div class="pcb">Founded 1971 — birthplace of German fine dining. Iconic 1970s architecture, cult status. Evening only, book ahead.<br><span class="price">📍 <a href="https://maps.google.com/?q=Tantris+Restaurant+Munich+Germany" target="_blank">Schwabing</a> · ~€150–220/person</span></div></div>
 </div>
 </div>
 <!-- ════════════════ MAPS ════════════════ -->
@@ -829,7 +912,7 @@ const MDATA = {
     center:[37.574,126.979], zoom:13,
     ctx:'<strong style="color:#c8942a">Seoul</strong> · Land ICN T1 17:30 May 16 → Depart ICN T2 16:10 May 17 · ~22h layover',
     btnBorder:'#8040d0', btnBg:'rgba(128,64,208,0.25)', btnColor:'#c080e8',
-    allMaps:'https://www.google.com/maps/dir/Jongno+Stay+Hostel+Seoul/Gyeongbokgung+Palace+Seoul/Bukchon+Hanok+Village+Seoul/Insadong+Seoul/Gwangjang+Market+Seoul/Born+and+Bred+Restaurant+Seongdong+Seoul/Maple+Tree+House+Itaewon/Soigne+Restaurant+Gangnam/Zzzip+Guesthouse+Hongdae+Seoul',
+    allMaps:'https://www.google.com/maps/dir/Zzzip+Guesthouse+Hongdae+Seoul/Gyeongbokgung+Palace+Seoul/Bukchon+Hanok+Village+Seoul/Gwangjang+Market+Seoul/JINS+Myeongdong+Seoul/Born+and+Bred+Restaurant+Seongdong+Seoul',
     pins:[
       {lat:37.5748,lng:126.9786,num:1,color:'#8040d0',type:'🛏 Hostel · Top Pick',name:'Jongno Stay',detail:'5 min walk to palace · Dorm ₩35k',gmaps:'https://maps.google.com/?q=Jongno+Stay+Hostel+Seoul'},
       {lat:37.5796,lng:126.9770,num:2,color:'#308050',type:'🗺 Sight',name:'Gyeongbokgung Palace',detail:'Opens 9am · Guard change 10am · ₩3,000',gmaps:'https://maps.google.com/?q=Gyeongbokgung+Palace+Seoul'},
@@ -839,14 +922,16 @@ const MDATA = {
       {lat:37.5524,lng:127.0355,num:6,color:'#d4af37',type:'🥩 Omakase · BOOKED ✓',name:'Born & Bred',detail:'Hanwoo speakeasy · 7 seats · 20:00 May 16 · ₩380k',gmaps:'https://maps.google.com/?q=Born+and+Bred+Restaurant+Seongdong+Seoul'},
       {lat:37.5383,lng:126.9948,num:7,color:'#c8942a',type:'🍽 Eat · Hanwoo BBQ',name:'Maple Tree House',detail:'Grade 1++ hanwoo · English menu · ₩100k/person',gmaps:'https://maps.google.com/?q=Maple+Tree+House+Itaewon+Seoul'},
       {lat:37.5218,lng:127.0361,num:8,color:'#c8942a',type:'🍽 Eat · CCW Michelin',name:'SOIGNÉ',detail:'CCW S2 · Hanwoo tasting menu · ₩250k · CATCHTABLE',gmaps:'https://maps.google.com/?q=Soigne+Restaurant+Gangnam+Seoul'},
-      {lat:37.5563,lng:126.9238,num:9,color:'#8040d0',type:'🛏 Hostel · Nightlife',name:'Zzzip Guesthouse (Hongdae)',detail:'Nightlife district · Social · Dorm ₩28k',gmaps:'https://maps.google.com/?q=Zzzip+Guesthouse+Hongdae+Seoul'},
+      {lat:37.5563,lng:126.9238,num:9,color:'#8040d0',type:'🛏 Hostel · ★9.78 Hostelworld',name:'Zzzip Guesthouse (Hongdae)',detail:'Highest-rated Seoul hostel · Social · Family-run · Dorm ₩28k',gmaps:'https://maps.google.com/?q=Zzzip+Guesthouse+Hongdae+Seoul'},
+      {lat:37.5641,lng:126.9826,num:10,color:'#60b0e8',type:'👓 Eyewear · JINS',name:'JINS Myeongdong',detail:'Japanese frames + lenses from ₩30k · Ready in 30–60min · Open 10am–10pm',gmaps:'https://maps.google.com/?q=JINS+Myeongdong+Seoul'},
+      {lat:37.5544,lng:126.9365,num:11,color:'#60b0e8',type:'👓 Eyewear · JINS (near Zzzip)',name:'JINS Sinchon',detail:'Walking distance from Zzzip hostel · Same as Myeongdong · Frames from ₩30k',gmaps:'https://maps.google.com/?q=JINS+Sinchon+Seoul'},
     ]
   },
   singapore: {
     center:[1.2894,103.8510], zoom:13,
     ctx:'<strong style="color:#c8942a">Singapore</strong> · Arrive SIN T3 21:30 May 17 · 2 nights pre-Bali · 1 night post-Bali (May 24–25, fly home 22:45)',
     btnBorder:'#b03030', btnBg:'rgba(176,48,48,0.2)', btnColor:'#e08080',
-    allMaps:'https://www.google.com/maps/dir/Parkroyal+Collection+Pickering+Singapore/Marina+Bay+Sands+Singapore/Gardens+by+the+Bay+Singapore/Maxwell+Food+Centre+Singapore/Wink+Hostel+Singapore/River+City+Inn+Clarke+Quay/Les+Amis+1+Scotts+Road+Singapore/Newton+Food+Centre+Singapore/No+Signboard+Seafood+Clarke+Quay/Candlenut+Dempsey+Hill+Singapore/Haji+Lane+Singapore',
+    allMaps:'https://www.google.com/maps/dir/Wink+Hostel+Upper+Cross+Street+Singapore/Gardens+by+the+Bay+Singapore/OWNDAYS+Marina+Bay+Sands+Singapore/Les+Amis+1+Scotts+Road+Singapore/Maxwell+Food+Centre+Singapore/Newton+Food+Centre+Singapore/Candlenut+Dempsey+Hill+Singapore',
     pins:[
       {lat:1.2854,lng:103.8442,num:1,color:'#b03030',type:'🏨 Hotel · Top Pick',name:'Parkroyal Collection Pickering',detail:'Sky gardens · Infinity pool · ~SGD 420/night',gmaps:'https://maps.google.com/?q=Parkroyal+Collection+Pickering+Singapore'},
       {lat:1.2834,lng:103.8607,num:2,color:'#b03030',type:'🏨 Hotel · Splurge',name:'Marina Bay Sands',detail:'Rooftop pool (guests only) · ~SGD 650/night',gmaps:'https://maps.google.com/?q=Marina+Bay+Sands+Singapore'},
@@ -868,6 +953,9 @@ const MDATA = {
       {lat:1.3055,lng:103.8159,num:18,color:'#c8942a',type:'🍽 Michelin ⭐ Peranakan',name:'Candlenut (Dempsey Hill)',detail:"World's only Michelin Peranakan · ~SGD 95/person",gmaps:'https://maps.google.com/?q=Candlenut+Restaurant+Dempsey+Hill+Singapore'},
       {lat:1.2902,lng:103.8525,num:19,color:'#c8942a',type:'🍽 Eat · Hawker Hall',name:'Lau Pa Sat + Satay Street',detail:'Victorian hawker hall · Charcoal satay · ~SGD 22',gmaps:'https://maps.google.com/?q=Lau+Pa+Sat+Singapore'},
       {lat:1.3038,lng:103.8318,num:20,color:'#c8942a',type:'🍽 Eat · Kopitiam',name:'Killiney Kopitiam (1919 Original)',detail:'Kaya toast + kopi-O · ~SGD 6',gmaps:'https://maps.google.com/?q=Killiney+Kopitiam+67+Killiney+Road+Singapore'},
+      {lat:1.3030,lng:103.8320,num:21,color:'#60b0e8',type:'👓 Eyewear · OWNDAYS (JINS equiv)',name:'OWNDAYS ION Orchard',detail:'Japanese frames from SGD $98 incl. lenses · Ready 20 min · Near Les Amis · May 18 ~17:30',gmaps:'https://maps.google.com/?q=OWNDAYS+ION+Orchard+Singapore'},
+      {lat:1.2931,lng:103.8531,num:22,color:'#60b0e8',type:'👓 Eyewear · OWNDAYS',name:'OWNDAYS Raffles City',detail:'#B1-41 Raffles City · CBD location · Easy from Wink Hostel · Open 11am–10pm',gmaps:'https://maps.google.com/?q=OWNDAYS+Raffles+City+Singapore'},
+      {lat:1.2834,lng:103.8607,num:23,color:'#60b0e8',type:'👓 Eyewear · OWNDAYS',name:'OWNDAYS Marina Bay Sands',detail:'#B2-117 The Shoppes · Walk from Gardens by the Bay · May 18 after morning',gmaps:'https://maps.google.com/?q=OWNDAYS+Marina+Bay+Sands+Singapore'},
     ]
   },
   munich: {
