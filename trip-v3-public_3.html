@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Mark · May 2026 Trip</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0906; --ink:#f2ead8; --muted:#5a5040; --gold:#c8942a;
+  --gold-dim:rgba(200,148,42,0.12); --border:rgba(255,255,255,0.06);
+  --flight:#0c1e32; --seoul-c:#12082a; --sg-c:#160606;
+  --munich-c:#060e18; --bali-c:#041008; --eat:#1a1006;
+  --do-c:#060e06; --warn:rgba(200,148,42,0.08); --hdr-bg:#100e0a;
+  --card:#12100c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;min-height:100vh;}
+a{color:var(--gold);}
+
+/* ── PASSWORD SCREEN ── */
+#pw-screen{
+  position:fixed;inset:0;background:var(--bg);z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;
+}
+#pw-screen h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--ink);margin-bottom:6px;}
+#pw-screen p{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:32px;}
+#pw-input{
+  width:100%;max-width:280px;background:#1a1610;border:1.5px solid rgba(200,148,42,0.35);
+  border-radius:8px;padding:12px 16px;color:var(--ink);font-family:'DM Mono',monospace;
+  font-size:14px;letter-spacing:2px;text-align:center;outline:none;margin-bottom:10px;
+}
+#pw-input:focus{border-color:var(--gold);}
+#pw-btn{
+  width:100%;max-width:280px;background:var(--gold);color:#000;border:none;
+  border-radius:8px;padding:12px 16px;font-family:'DM Mono',monospace;font-size:10px;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-bottom:12px;
+}
+#pw-err{font-family:'DM Mono',monospace;font-size:9px;color:#ff6060;letter-spacing:1px;height:16px;}
+#pw-change-wrap{margin-top:24px;width:100%;max-width:280px;}
+#pw-change-wrap summary{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;cursor:pointer;text-align:center;}
+#pw-change-wrap input,#pw-change-wrap button{margin-top:8px;width:100%;}
+#pw-change-new{
+  background:#1a1610;border:1.5px solid var(--border);border-radius:6px;
+  padding:10px 14px;color:var(--ink);font-family:'DM Mono',monospace;font-size:12px;
+  letter-spacing:1px;outline:none;
+}
+#pw-change-btn{
+  background:transparent;border:1.5px solid rgba(200,148,42,0.3);border-radius:6px;
+  padding:8px;color:var(--gold);font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+}
+
+/* ── MAIN APP (hidden until unlocked) ── */
+#app{display:none;}
+
+/* ── HEADER ── */
+.hdr{padding:32px 16px 24px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#131008 0%,var(--bg) 100%);}
+.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;line-height:1;}
+.hdr-title span{color:var(--gold);}
+.hdr-sub{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:6px;text-transform:uppercase;}
+.lock-btn{float:right;background:transparent;border:1px solid var(--border);border-radius:5px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);cursor:pointer;margin-top:4px;}
+
+/* ── TABS ── */
+.tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:11px 14px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ── VIEWS ── */
+.view{display:none;}
+.view.active{display:block;}
+
+/* ── GRID ── */
+.grid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.grid{
+  display:grid;
+  grid-template-columns:54px repeat(9,minmax(120px,1fr));
+  min-width:800px;
+  border-left:1px solid var(--border);
+}
+.col-hdr{padding:7px 9px;border-right:1px solid var(--border);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:10;background:var(--hdr-bg);}
+.col-date{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;}
+.col-dow{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-top:1px;}
+.col-dest{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 5px;border-radius:3px;display:inline-block;margin-top:3px;}
+.d-yyz{background:rgba(100,100,200,0.15);color:#9090e8;}
+.d-icn{background:rgba(140,80,200,0.15);color:#c080e8;}
+.d-sin{background:rgba(200,60,60,0.15);color:#e08080;}
+.d-bali{background:rgba(40,120,60,0.15);color:#80c890;}
+.d-muc{background:rgba(60,140,200,0.15);color:#80c0e8;}
+.tc{border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.tl{font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);padding:5px 6px;letter-spacing:1px;border-bottom:1px solid var(--border);background:var(--hdr-bg);white-space:nowrap;}
+.cell{border-right:1px solid var(--border);border-bottom:1px solid var(--border);min-height:75px;}
+.cell.empty{background:transparent;}
+.cell.in-air{background:rgba(12,30,50,0.4);}
+.cell.bali-block{background:rgba(4,16,8,0.6);}
+.block{padding:7px 8px;height:100%;min-height:75px;display:flex;flex-direction:column;gap:2px;}
+.btype{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:1.5px;text-transform:uppercase;opacity:.6;}
+.btitle{font-size:10px;font-weight:700;line-height:1.3;}
+.bdetail{font-size:9px;line-height:1.5;opacity:.65;margin-top:2px;}
+.bdetail strong{opacity:1;color:var(--ink);}
+.btime{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);font-weight:500;margin-bottom:1px;}
+.rtag{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:1px;background:rgba(255,255,255,0.05);padding:1px 5px;border-radius:3px;color:var(--gold);display:inline-block;margin-top:3px;align-self:flex-start;}
+.wtag{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:1px;background:rgba(200,148,42,0.1);border:1px solid rgba(200,148,42,0.2);padding:1px 5px;border-radius:3px;color:var(--gold);display:inline-block;margin-top:3px;align-self:flex-start;}
+.bf{background:var(--flight);border-left:2px solid #2a6aaa;}
+.bs{background:var(--seoul-c);border-left:2px solid #8040d0;}
+.bsg{background:var(--sg-c);border-left:2px solid #b03030;}
+.bm{background:var(--munich-c);border-left:2px solid #4090c0;}
+.bb{background:var(--bali-c);border-left:2px solid #408050;}
+.be{background:var(--eat);border-left:2px solid #c8942a;}
+.bd{background:var(--do-c);border-left:2px solid #308050;}
+.bw{background:var(--warn);border-left:2px dashed #c8942a;}
+.bf .btype{color:#6aaae8;} .be .btype{color:var(--gold);} .bd .btype{color:#80c080;}
+.bs .btype{color:#b080e8;} .bm .btype{color:#80c0e8;} .bsg .btype{color:#e08080;}
+.bb .btype{color:#80c890;} .bw .btype{color:var(--gold);}
+.air-label{display:flex;align-items:center;justify-content:center;height:100%;min-height:75px;}
+.air-label span{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;color:var(--muted);transform:rotate(-90deg);white-space:nowrap;}
+
+/* ── PANELS ── */
+.panel{padding:16px;}
+.ptitle{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.psub{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:16px 0 8px;}
+
+/* ── CARDS ── */
+.pc{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:12px 13px;margin-bottom:7px;}
+.pch{font-size:12px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.pcb{font-size:10px;line-height:1.65;color:rgba(242,234,216,0.65);}
+.pcb strong{color:var(--ink);}
+.badge{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:1px;padding:2px 5px;border-radius:3px;text-transform:uppercase;}
+.bn{background:rgba(229,9,20,0.2);color:#ff6060;border:1px solid rgba(229,9,20,0.3);}
+.bmc{background:rgba(200,148,42,0.15);color:var(--gold);border:1px solid rgba(200,148,42,0.3);}
+.bhw{background:rgba(180,60,60,0.15);color:#e09090;border:1px solid rgba(180,60,60,0.3);}
+.bhs{background:rgba(60,120,180,0.15);color:#90c0e8;border:1px solid rgba(60,120,180,0.3);}
+.btp{background:rgba(80,160,80,0.15);color:#90d090;border:1px solid rgba(80,160,80,0.3);}
+.price{font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);margin-top:3px;display:block;}
+
+/* ── ATTRACTIONS / THINGS TO DO CARDS ── */
+.att-card{background:#0a1008;border:1px solid rgba(48,128,80,0.25);border-left:3px solid #308050;border-radius:7px;padding:12px 13px;margin-bottom:7px;}
+.att-card .pch{font-size:12px;}
+.att-card .pcb{color:rgba(242,234,216,0.65);}
+
+/* ── TASK CHECKBOXES ── */
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:7px;background:var(--card);border:1px solid var(--border);margin-bottom:7px;transition:opacity 0.2s;cursor:pointer;}
+.task-item.done{opacity:0.38;}
+.task-item.done .task-title{text-decoration:line-through;color:var(--muted);}
+.task-cb-wrap{padding-top:2px;flex-shrink:0;}
+.task-cb{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;transition:all 0.15s;background:transparent;flex-shrink:0;}
+.task-item.done .task-cb{background:var(--gold);border-color:var(--gold);}
+.task-cb-check{display:none;width:6px;height:10px;border:2px solid #000;border-top:none;border-left:none;transform:rotate(45deg) translate(0,-1px);}
+.task-item.done .task-cb-check{display:block;}
+.task-body{flex:1;}
+.task-title{font-size:12px;font-weight:700;margin-bottom:3px;}
+.task-detail{font-size:10px;color:rgba(242,234,216,0.6);line-height:1.55;}
+.task-detail a{color:var(--gold);}
+.task-foot{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap;}
+.cal-badge{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;background:rgba(80,180,80,0.12);color:#80d080;border:1px solid rgba(80,180,80,0.25);padding:2px 6px;border-radius:3px;}
+.cal-del-badge{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1px;background:rgba(80,80,80,0.15);color:var(--muted);border:1px solid rgba(80,80,80,0.2);padding:2px 6px;border-radius:3px;display:none;}
+.task-item.done .cal-del-badge{display:inline-block;}
+.task-item.done .cal-badge{display:none;}
+.progress-bar-wrap{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin:12px 0 4px;}
+.progress-bar{height:4px;background:var(--gold);border-radius:2px;transition:width 0.4s;}
+.progress-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:14px;letter-spacing:1px;}
+
+/* ── PACKING ── */
+.pack-section{margin-bottom:22px;}
+.pack-cat{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.pack-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.pack-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:6px;background:var(--card);border:1px solid var(--border);font-size:11px;cursor:pointer;transition:opacity 0.15s;}
+.pack-item.packed{opacity:0.35;}
+.pack-item.packed .pack-label{text-decoration:line-through;}
+.pack-cb{width:15px;height:15px;border-radius:3px;flex-shrink:0;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.pack-item.packed .pack-cb{background:var(--gold);border-color:var(--gold);}
+.pack-check{display:none;width:4px;height:8px;border:1.5px solid #000;border-top:none;border-left:none;transform:rotate(45deg) translate(0,-1px);}
+.pack-item.packed .pack-check{display:block;}
+
+/* ── MONEY TABLE ── */
+.money-table{width:100%;border-collapse:collapse;margin:8px 0 16px;}
+.money-table th{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--border);text-align:left;}
+.money-table td{font-size:10px;padding:9px 8px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.money-table tr:last-child td{border-bottom:none;}
+.amt{font-family:'DM Mono',monospace;font-weight:500;color:var(--gold);white-space:nowrap;}
+
+/* ── MAPS ── */
+.map-wrap{width:100%;height:420px;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:12px;position:relative;}
+#trip-map{width:100%;height:100%;}
+.mlegend{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding-bottom:16px;}
+/* Leaflet popup dark theme */
+.leaflet-popup-content-wrapper{background:#1e1a14;color:#f2ead8;border:1px solid rgba(200,148,42,0.3);border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.6);}
+.leaflet-popup-tip{background:#1e1a14;}
+.leaflet-popup-content{margin:10px 14px;font-family:'DM Sans',sans-serif;}
+.pop-type{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:1.5px;text-transform:uppercase;opacity:.55;margin-bottom:2px;}
+.pop-name{font-size:13px;font-weight:700;margin-bottom:3px;}
+.pop-detail{font-size:10px;opacity:.7;line-height:1.5;}
+.pop-link{display:inline-block;margin-top:6px;font-family:'DM Mono',monospace;font-size:8px;color:#c8942a;text-decoration:none;letter-spacing:1px;}
+.leaflet-control-zoom a{background:#1e1a14!important;color:#f2ead8!important;border-color:rgba(255,255,255,0.1)!important;}
+.leaflet-control-attribution{background:rgba(10,9,6,0.8)!important;color:#5a5040!important;font-size:8px;}
+.leaflet-control-attribution a{color:#c8942a!important;}
+.mpin{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:9px 10px;text-decoration:none;color:inherit;display:block;}
+.mpin-type{font-family:'DM Mono',monospace;font-size:6px;letter-spacing:1.5px;text-transform:uppercase;opacity:.5;margin-bottom:2px;}
+.mpin-name{font-size:11px;font-weight:700;margin-bottom:3px;}
+.mpin-detail{font-size:9px;opacity:.6;line-height:1.45;margin-bottom:4px;}
+.mpin-link{font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);letter-spacing:1px;}
+.num-pill{background:#333;color:white;border-radius:50%;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;margin-right:4px;flex-shrink:0;vertical-align:middle;}
+
+/* ── CITY SWITCHER BUTTONS ── */
+.city-btns{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.city-btn{flex:1;min-width:80px;padding:10px 6px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.1);background:transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:480px){
+  .pack-grid{grid-template-columns:1fr;}
+  .mlegend{grid-template-columns:1fr;}
+  #trip-map{height:320px;}
+  .money-table th,.money-table td{font-size:9px;padding:6px 5px;}
+  .ptitle{font-size:20px;}
+  .hdr-title{font-size:28px;}
+  .tab{padding:10px 10px;font-size:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     PASSWORD SCREEN
+══════════════════════════════════════════════ -->
+<div id="pw-screen">
+  <h1>MARK · MAY 2026</h1>
+  <p>Enter password to continue</p>
+  <input id="pw-input" type="password" placeholder="••••••••" autocomplete="off"
+    onkeydown="if(event.key==='Enter')checkPw()"/>
+  <button id="pw-btn" onclick="checkPw()">Unlock →</button>
+  <div id="pw-err"></div>
+  <details id="pw-change-wrap">
+    <summary>Change password</summary>
+    <input id="pw-change-new" type="password" placeholder="New password" autocomplete="new-password"/>
+    <button id="pw-change-btn" onclick="changePw()">Save new password</button>
+    <div id="pw-change-msg" style="font-family:'DM Mono',monospace;font-size:8px;color:#80d080;margin-top:6px;height:14px;"></div>
+  </details>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════════════ -->
+<div id="app">
+
+<div class="hdr">
+  <button class="lock-btn" onclick="lockApp()">🔒 Lock</button>
+  <div class="hdr-title">MARK · <span>MAY 2026</span></div>
+  <div class="hdr-sub">YYZ · ICN · SIN · DPS · SIN · MUC · YYZ &nbsp;|&nbsp; CN8KTC · DFYVP9</div>
+</div>
+
+<div class="tabs" id="main-tabs">
+  <button class="tab active" onclick="show('grid',this)">📅 Grid</button>
+  <button class="tab" onclick="show('seoul',this)">🇰🇷 Seoul</button>
+  <button class="tab" onclick="show('sg',this)">🇸🇬 Singapore</button>
+  <button class="tab" onclick="show('my',this)">🇲🇾 Malaysia</button>
+  <button class="tab" onclick="show('munich',this)">🇩🇪 Munich</button>
+  <button class="tab" onclick="show('maps',this)">🗺 Maps</button>
+  <button class="tab" onclick="show('book',this)">✅ Tasks</button>
+  <button class="tab" onclick="show('pack',this)">🎒 Pack</button>
+</div>
+
+
+<!-- ════════════════ GRID ════════════════ -->
+<div class="view active" id="grid">
+<div class="grid-wrap">
+<div class="grid">
+
+<!-- COLUMN HEADERS -->
+<div class="col-hdr tc"><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);padding-top:6px;letter-spacing:1px">TIME</div></div>
+<div class="col-hdr"><div class="col-date">15</div><div class="col-dow">Fri · May</div><div class="col-dest d-yyz">Toronto YYZ</div></div>
+<div class="col-hdr"><div class="col-date">16</div><div class="col-dow">Sat · May</div><div class="col-dest d-icn">Seoul ICN</div></div>
+<div class="col-hdr"><div class="col-date">17</div><div class="col-dow">Sun · May</div><div class="col-dest d-icn">Seoul → SIN</div></div>
+<div class="col-hdr"><div class="col-date">18</div><div class="col-dow">Mon · May</div><div class="col-dest d-sin">Singapore</div></div>
+<div class="col-hdr"><div class="col-date">19</div><div class="col-dow">Tue · May</div><div class="col-dest d-sin">SIN → Bali</div></div>
+<div class="col-hdr"><div class="col-date">20–23</div><div class="col-dow">Wed–Sat</div><div class="col-dest d-bali">Bali 🌺</div></div>
+<div class="col-hdr"><div class="col-date">24</div><div class="col-dow">Sun · May</div><div class="col-dest d-sin">Bali → SIN</div></div>
+<div class="col-hdr"><div class="col-date">25</div><div class="col-dow">Mon · May</div><div class="col-dest d-sin">Singapore</div></div>
+<div class="col-hdr"><div class="col-date">26</div><div class="col-dow">Tue · May</div><div class="col-dest d-muc">Munich → YYZ</div></div>
+
+<!-- BALI spans rows 1-5 (Morning through Evening). Night row needs explicit Bali placeholder. -->
+
+<!-- ════ ROW: MORNING 06–10 ════ -->
+<div class="tc"><div class="tl">06–10</div></div>
+<div class="cell"><div class="block bw"><div class="btype">Prep</div><div class="btitle">Leave home 10:30am</div><div class="bdetail">YYZ T1 · Allow 3h international. Pack wedding outfit in carry-on.</div></div></div>
+<div class="cell in-air"><div class="air-label"><span>AC61 IN AIR · LANDS 17:30 KST</span></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Seoul</div><div class="btime">09:00</div><div class="btitle">Gyeongbokgung Palace</div><div class="bdetail">Opens 9am · Guard change 10am · ₩3,000 · <a href="https://maps.google.com/?q=Gyeongbokgung+Palace+Seoul" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Breakfast</div><div class="btime">08:30</div><div class="btitle">Killiney Kopitiam 1919</div><div class="bdetail">Kaya toast + kopi-O. Original 1919 branch. ~SGD 6. <a href="https://maps.google.com/?q=Killiney+Kopitiam+67+Killiney+Road+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bw"><div class="btype">Logistics</div><div class="btime">09:00</div><div class="btitle">Check out · Head to Changi</div><div class="bdetail">Leave hotel by 11:00. MRT to airport ~30 min. Scoot departs 14:00.</div></div></div>
+<div class="cell bali-block" style="grid-row:span 5"><div class="block bb" style="min-height:400px;justify-content:center;align-items:center;text-align:center;"><div class="btype">Bali · Wedding</div><div class="btitle" style="font-size:18px;margin-top:8px">🌺</div><div class="btitle" style="margin-top:4px">4 Days · No itinerary</div><div class="bdetail" style="margin-top:8px">At DPS by <strong>10:30am May 24</strong> for SQ939 13:15 WITA</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Last Bali Morning</div><div class="btime">09:00</div><div class="btitle">Last breakfast in Bali</div><div class="bdetail">Hotel breakfast. Head to DPS by 10:30. Ngurah Rai can be slow — arrive early.</div></div></div>
+<div class="cell"><div class="block bb"><div class="btype">Eat · Breakfast · JB 🇲🇾</div><div class="btime">08:30</div><div class="btitle">Kacang Pool + Roti Canai</div><div class="bdetail">Restoran Kacang Pool Haji — uniquely Johorean breakfast, fava beans + toasted bread. ~RM 8. <a href="https://maps.google.com/?q=Restoran+Kacang+Pool+Haji+Johor+Bahru" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bm"><div class="btype">Arrive · Munich</div><div class="btime">05:15 CET</div><div class="btitle">Land MUC T2</div><div class="bdetail">Bags at left luggage ~€8. S-Bahn S1/S8 → Marienplatz (40 min, €13.60). <a href="https://maps.google.com/?q=Munich+Central+Station+Germany" target="_blank">↗ Maps</a></div><div class="wtag">⚠ Back at MUC by 13:30 for LH494</div></div></div>
+
+<!-- ════ ROW: LATE MORNING 10–13 ════ -->
+<div class="tc"><div class="tl">10–13</div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Pre-flight</div><div class="btime">11:00</div><div class="btitle">Lunch at YYZ T1</div><div class="bdetail">Maple Leaf Lounge if Aeroplan, or Longos T1. Board 13:50.</div></div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR · AC61</span></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Seoul</div><div class="btime">10:30</div><div class="btitle">Bukchon Hanok Village</div><div class="bdetail">15 min walk from palace. Traditional alleyways. Free. <a href="https://maps.google.com/?q=Bukchon+Hanok+Village+Seoul" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Singapore</div><div class="btime">09:30</div><div class="btitle">Gardens by the Bay</div><div class="bdetail">Flower Dome + Cloud Forest. ~SGD 53. Book online night before. <a href="https://maps.google.com/?q=Gardens+by+the+Bay+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Pre-flight</div><div class="btime">11:30</div><div class="btitle">Ya Kun Kaya Toast · Changi</div><div class="bdetail">Last SG breakfast at airport. <a href="https://maps.google.com/?q=Ya+Kun+Kaya+Toast+Changi+Airport+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block bw"><div class="btype">Transit</div><div class="btime">10:30 WITA</div><div class="btitle">At Ngurah Rai Airport (DPS)</div><div class="bdetail">Check in SQ939 departing 13:15 WITA. Arrive early. <a href="https://maps.google.com/?q=Ngurah+Rai+International+Airport+Bali" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bb"><div class="btype">Do · Explore JB 🇲🇾</div><div class="btime">10:00</div><div class="btitle">Jalan Tan Hiok Nee + Jalan Dhoby</div><div class="bdetail">Heritage street art, banana cake bakery, indie cafes. Grab everywhere. <a href="https://maps.google.com/?q=Jalan+Tan+Hiok+Nee+Johor+Bahru" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Bavarian · Must-Do</div><div class="btime">07:30</div><div class="btitle">Viktualienmarkt Breakfast</div><div class="bdetail">Weisswurst + pretzel + Weissbier. ~€12. Opens 7am. <a href="https://maps.google.com/?q=Viktualienmarkt+Munich+Germany" target="_blank">↗ Maps</a></div></div></div>
+
+<!-- ════ ROW: LUNCH 13–15 ════ -->
+<div class="tc"><div class="tl">13–15</div></div>
+<div class="cell"><div class="block bf"><div class="btype">Flight 1/6 · AC061</div><div class="btime">13:50 EDT</div><div class="btitle">YYZ T1 → Seoul ICN T1</div><div class="bdetail">14h 40m · 787-9 · <strong>Seat 43H</strong> · Meal + Breakfast · Wi-Fi</div><div class="rtag">CN8KTC</div></div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR → LANDS 17:30 KST</span></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Last Seoul Meal</div><div class="btime">12:00</div><div class="btitle">Gwangjang Market</div><div class="bdetail">Bindaetteok + mayak gimbap + yukhoe. Cash only. ₩15–20k. <a href="https://maps.google.com/?q=Gwangjang+Market+Seoul" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Hawker · Lunch</div><div class="btime">12:30</div><div class="btitle">Lau Pa Sat + Satay Street</div><div class="bdetail">Victorian hawker hall · Charcoal satay noon–midnight. ~SGD 22. <a href="https://maps.google.com/?q=Lau+Pa+Sat+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bf"><div class="btype">Flight 3/6 · Scoot</div><div class="btime">14:00 SGT</div><div class="btitle">SIN → Bali DPS</div><div class="bdetail">2h 35m · Arrives 16:35 WITA</div></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block bf"><div class="btype">Flight 4/6 · SQ939</div><div class="btime">13:15 WITA</div><div class="btitle">DPS → SIN T3</div><div class="bdetail">2h 45m · Arrives 16:00 SGT · Singapore Airlines</div><div class="rtag">DFYVP9</div></div></div>
+<div class="cell"><div class="block bb"><div class="btype">Eat · Lunch · JB 🇲🇾</div><div class="btime">12:00</div><div class="btitle">Curry Fish Head — Kam Long Ah Zai</div><div class="bdetail">The JB institution since 1983. Claypot, rich spicy curry, huge fish head, tofu puffs. ~RM 35. Expect a queue. <a href="https://maps.google.com/?q=Kam+Long+Curry+Fish+Head+Johor+Bahru" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Munich</div><div class="btime">09:00</div><div class="btitle">English Garden + Eisbach Surfers</div><div class="bdetail">River wave surfers. Chinesischer Turm beer garden 10am. <a href="https://maps.google.com/?q=Eisbach+Wave+English+Garden+Munich" target="_blank">↗ Maps</a></div></div></div>
+
+<!-- ════ ROW: AFTERNOON 15–19 ════ -->
+<div class="tc"><div class="tl">15–19</div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR</span></div></div>
+<div class="cell"><div class="block bs"><div class="btype">Arrive · Seoul ICN T1</div><div class="btime">17:30 KST</div><div class="btitle">Land · AREX to city</div><div class="bdetail">AREX Express: ICN → Seoul Station (43 min, ₩11,000). Buy T-money card at airport.</div></div></div>
+<div class="cell"><div class="block bs"><div class="btype">Transit · ⚠ LEAVE BY 13:00</div><div class="btime">13:00 KST</div><div class="btitle">AREX → ICN T1 → T2 shuttle</div><div class="bdetail">Seoul Stn → ICN T1 (43 min) → T2 shuttle (20 min). Check in by 13:30.</div><div class="wtag">OZ751 departs 16:10 from T2</div></div></div>
+<div class="cell"><div class="block bd"><div class="btype">Do · Singapore · Beach</div><div class="btime">13:30</div><div class="btitle">Sentosa — Palawan / Siloso Beach</div><div class="bdetail">MRT to HarbourFront → Sentosa Express (25 min). Swim + sunbed. Back by 17:00 to shower + change for Les Amis 19:30. <a href="https://maps.google.com/?q=Palawan+Beach+Sentosa+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR → BALI</span></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block bf"><div class="btype">Transit · SIN → JB Malaysia</div><div class="btime">16:00 → 18:30</div><div class="btitle">Land SIN → Cross to Johor Bahru</div><div class="bdetail">Clear SIN immigration → Woodlands Checkpoint (MRT + bus, ~45min from Changi) → clear Malaysian immigration → Citrus Hotel JB by ~18:30. <a href="https://maps.google.com/?q=Citrus+Hotel+Johor+Bahru" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bb"><div class="btype">Do + Transit · JB → SIN</div><div class="btime">13:00 → 17:00</div><div class="btitle">JB shopping + Cross back to SIN</div><div class="bdetail">City Square / KSL mall (MYR goes ~3x vs SGD). Cross back by 16:00 → Woodlands → MRT to Changi. At Changi T2 by ~18:30. <a href="https://maps.google.com/?q=Woodlands+Checkpoint+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bf"><div class="btype">Transit + Flight 6/6 · LH494</div><div class="btime">12:30 → 15:50 CET</div><div class="btitle">S-Bahn → MUC · LH494 departs 15:50 → YYZ 🏠</div><div class="bdetail">S-Bahn to MUC 40min · Gate by 14:30 · No seat assigned · Land YYZ 18:30 EDT</div><div class="rtag">CN8KTC</div></div></div>
+
+<!-- ════ ROW: EVENING 19–23 ════ -->
+<div class="tc"><div class="tl">19–23</div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR</span></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · ⭐ BOOKED ✓</div><div class="btime">20:00 KST</div><div class="btitle">Born & Bred — Hanwoo Omakase</div><div class="bdetail">Basement speakeasy · 7 seats · ~2–2.5h · done by ~22:30. <a href="https://maps.google.com/?q=Born+and+Bred+Restaurant+Seongdong+Seoul" target="_blank">↗ Maps</a> ~₩380k.</div></div></div>
+<div class="cell"><div class="block bf"><div class="btype">Flight 2/6 · OZ751</div><div class="btime">16:10 KST → 21:30 SGT</div><div class="btitle">ICN T2 → SIN T3</div><div class="bdetail">6h 20m · Asiana Airlines A359 · <strong>Seat 37H</strong></div><div class="rtag">CN8KTC</div></div></div>
+<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · ⭐⭐⭐ BOOKED ✓</div><div class="btime">19:30</div><div class="btitle">Les Amis</div><div class="bdetail">3 Michelin stars · Shaw Centre, 1 Scotts Rd. <a href="https://maps.google.com/?q=Les+Amis+Restaurant+1+Scotts+Road+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bb"><div class="btype">Arrive · Bali</div><div class="btime">16:35 WITA</div><div class="btitle">🌺 Arrive Bali — Wedding begins</div><div class="bdetail">No itinerary from here. Enjoy every moment.</div></div></div>
+<!-- Bali span covers May20-23 column here -->
+<div class="cell"><div class="block be"><div class="btype">Eat · Dinner · Malaysia 🇲🇾</div><div class="btime">19:00</div><div class="btitle">Dinner in Johor Bahru</div><div class="bdetail">Kacang Pool + Kway Teow Kia for intro. Or Binchotan JB omakase (12 seats, Wagyu + Hokkaido scallop, top 20 Malaysia — book ahead). <a href="https://maps.google.com/?q=Binchotan+Restaurant+Johor+Bahru" target="_blank">↗ Maps</a> Everything ~3x cheaper than SG.</div></div></div>
+<div class="cell"><div class="block bsg"><div class="btype">Transit · At Changi T2</div><div class="btime">18:30</div><div class="btitle">Changi Jewel → T2 Check-in</div><div class="bdetail">Back from JB. Explore Jewel Changi waterfall or get a last SG meal. Check in LH769 by 21:00. T2, not T3. <a href="https://maps.google.com/?q=Jewel+Changi+Airport+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell in-air"><div class="air-label"><span>LH494 IN AIR → YYZ</span></div></div>
+
+<!-- ════ ROW: NIGHT 23–06 ════ -->
+<!-- Night row: 9 cells needed — Bali span ends, need explicit placeholder -->
+<div class="tc"><div class="tl">Night</div></div>
+<div class="cell in-air"><div class="air-label"><span>IN AIR · AC61</span></div></div>
+<div class="cell"><div class="block bs"><div class="btype">Bathhouse + Sleep · BOOKED ✓</div><div class="btime">22:30 → late</div><div class="btitle">Siloam Sauna → Hotel Drip&Drop</div><div class="bdetail">Post-Born&Bred: Siloam Bulgama 24h sauna + body scrub ₩12–15k. <a href="https://maps.google.com/?q=Siloam+Bulgama+Sauna+253+Seosomun-ro+Jung-gu+Seoul" target="_blank">↗ Maps</a> Then Hotel Drip&Drop, Myeongdong. <a href="https://maps.google.com/?q=Hotel+Drip+Drop+44+Myeongdong+3-gil+Seoul" target="_blank">↗ Maps</a><div class="wtag">Leave hotel 08:45 May 17 — palace + ICN</div></div></div></div>
+<div class="cell"><div class="block bsg"><div class="btype">Arrive SIN · Supper + Sleep · BOOKED ✓</div><div class="btime">22:15</div><div class="btitle">Newton FC → BEAT 1932 Hostel</div><div class="bdetail">Newton Food Centre supper. <a href="https://maps.google.com/?q=Newton+Food+Centre+Singapore" target="_blank">↗ Maps</a> Then BEAT 1932 Hostel — 237 South Bridge Rd, Chinatown. Agoda #1001250522. <a href="https://maps.google.com/?q=BEAT+1932+Hostel+237+South+Bridge+Road+Singapore" target="_blank">↗ Maps</a></div></div></div>
+<div class="cell"><div class="block bsg"><div class="btype">Spa + Sleep · BOOKED ✓</div><div class="btime">22:00 → late</div><div class="btitle">G.Spa → BEAT 1932 Hostel</div><div class="bdetail">G.Spa men-only sauna after Les Amis. <a href="https://maps.google.com/?q=G+Spa+102+Guillemard+Road+Singapore" target="_blank">↗ Maps</a> BEAT hostel covered (night 2). Pack for Bali. Wedding outfit in carry-on. Check out May 19 by 11:00.</div></div></div>
+<div class="cell bb"><div class="air-label"><span>BALI</span></div></div>
+<!-- Explicit Bali placeholder for night row -->
+<div class="cell bali-block"><div class="air-label"><span>BALI</span></div></div>
+<!-- May24 Night: Sleep SG -->
+<div class="cell"><div class="block bb"><div class="btype">Sleep · Johor Bahru 🇲🇾</div><div class="btitle">Citrus Hotel JB</div><div class="bdetail">5 min walk to JB Checkpoint. Budget hotel, clean, convenient. Book via Agoda/Booking.com. ~RM 80–120/night (~CAD $25–40). <a href="https://maps.google.com/?q=Citrus+Hotel+Johor+Bahru+City+Centre" target="_blank">↗ Maps</a></div><div class="wtag">⚠ Need to book</div></div></div>
+<!-- May25 Night: LH769 departs 22:45 SGT MON MAY 25 -->
+<div class="cell"><div class="block bf"><div class="btype">Flight 5/6 · LH769</div><div class="btime">22:45 SGT</div><div class="btitle">SIN T2 → Munich MUC T2</div><div class="bdetail">12h 30m · LH A359 · No seat assigned · Overnight · Arrives Tue May 26 05:15 CET</div><div class="rtag">CN8KTC</div><div class="wtag">Depart T2 — not T3 where SQ939 arrived</div></div></div>
+<!-- May26 Night: Land YYZ 18:30 EDT -->
+<div class="cell"><div class="block bw"><div class="btype">Home · YYZ</div><div class="btime">18:30 EDT</div><div class="btitle">Land Toronto Pearson T1 🏠</div><div class="bdetail">Welcome home. LH494 from MUC 15:50 → YYZ 18:30 EDT.</div></div></div>
+
+</div><!-- /grid -->
+</div><!-- /grid-wrap -->
+</div><!-- /view#grid -->
+
+
+<!-- ════════════════ SEOUL ════════════════ -->
+<div class="view" id="seoul">
+<div class="panel">
+  <div class="ptitle">🇰🇷 Seoul — Sat May 16 → Sun May 17</div>
+
+  <div class="pc" style="border-left:3px solid #d4af37;">
+    <div class="pch">🏨 Hotel Drip&Drop · Myeongdong · BOOKED ✓</div>
+    <div class="pcb">📍 <a href="https://maps.google.com/?q=Hotel+Drip+Drop+44+Myeongdong+3-gil+Seoul" target="_blank">44 Myeongdong 3-gil, Jung-gu, Seoul</a> · Agoda confirmed<br>
+    Check-in: May 16 ~19:30 KST · Check-out: May 17 by 08:45<br>
+    <strong>Transport in:</strong> Land ICN T1 17:30 → AREX Express to Seoul Station (43 min, ₩11,000) → Line 4 to Myeongdong Station → 2 min walk<br>
+    <strong>Transport out:</strong> Hotel 08:45 → Myeongdong Station → Line 4 to Seoul Station → AREX to ICN T1 (43 min) → free shuttle to T2 (20 min) → OZ751 check-in by 13:30<br>
+    <strong>Electrical:</strong> Korea uses Type C/F (round 2-pin, 220V). Universal adapter required. Most modern device chargers are 100–240V (check the brick).</div>
+  </div>
+
+  <div class="psub">📋 Itinerary — May 16 (Sat)</div>
+
+  <div class="pc"><div class="pch">17:30 — Land ICN T1 · Get T-money card</div>
+  <div class="pcb">Clear immigration. Buy T-money card at convenience store past arrivals (₩4,000 + load value — minimum ₩10,000). Works on all subway + AREX + buses. AREX Express platform is in the basement of arrivals hall. Platform 1 for express to Seoul Station (43 min, ₩11,000). <a href="https://maps.google.com/?q=Incheon+International+Airport+Terminal+1" target="_blank">↗ Maps</a></div></div>
+
+  <div class="pc"><div class="pch">19:30 — Check in · Hotel Drip&Drop · Myeongdong</div>
+  <div class="pcb">Drop bags. Freshen up. Myeongdong street food is right outside — tteokbokki, hotteok, corn dogs everywhere. Good for a quick snack while you settle.<br>
+  <strong>Sidequest:</strong> Myeongdong is THE duty-free street in Seoul. Laneige, Innisfree, Sulwhasoo all have flagship stores within 2 min walk. Good for K-beauty skincare if that's your thing.</div></div>
+
+  <div class="pc"><div class="pch">20:00 — Born & Bred · Hanwoo Omakase · BOOKED ✓</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Born+and+Bred+Restaurant+Seongdong+Seoul" target="_blank">1 Majang-ro 42-gil, Seongdong-gu</a> · Near Majang Station, Line 5 Exit 3<br>
+  <strong>Getting there from hotel:</strong> Myeongdong Stn (Line 4) → transfer at Dongdaemun History & Culture (Line 5) → Majang Stn (~25 min total). Or taxi ~15 min, ~₩12,000.<br>
+  7 seats only. Chef cooks every course at the counter. Grade 9 BMS 1++ female cattle. Binchotan charcoal. 14–19 courses: tartare, tataki, tenderloin, striploin, outside skirt, beef katsu. Runs ~2–2.5h. Done by ~22:30. ₩380,000/person.</div></div>
+
+  <div class="pc"><div class="pch">22:30 — Siloam Bulgama Sauna · Post-dinner jjimjilbang</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Siloam+Bulgama+Sauna+253+Seosomun-ro+Jung-gu+Seoul" target="_blank">253 Seosomun-ro, Jung-gu</a> · Near Seoul Station (Line 1/4)<br>
+  <strong>Getting there from Born & Bred:</strong> Majang Stn Line 5 → Seoul Station (~20 min). Or taxi ~15 min, ~₩12,000.<br>
+  Open 24 hours. 6 floors of saunas: charcoal room, clay room, Himalayan salt, ice room, multiple hot pool temperatures. Gender-separated bathing floors (go in naked — totally normal, nobody stares). Get the <strong>seshin body scrub</strong> (세신, ~₩25,000 add-on) — an attendant uses a coarse mitt to scrub off your entire outer layer of dead skin. Sounds brutal, feels incredible, skin will be silky for days. Eat hard-boiled eggs and sikhye (sweet rice drink) after — the jjimjilbang ritual. Entry ₩12,000–15,000. Towel + pyjamas included.<br>
+  <strong>Back to hotel:</strong> Seoul Station → Line 4 → Myeongdong (2 stops, ~5 min). Late trains run until 00:30 KST.</div></div>
+
+  <div class="psub">📋 Itinerary — May 17 (Sun) · LEAVE HOTEL BY 08:45</div>
+
+  <div class="pc"><div class="pch">08:45 — Leave hotel → Gyeongbokgung Palace</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Gyeongbokgung+Palace+Seoul" target="_blank">161 Sajik-ro, Jongno-gu</a> · Line 3 Gyeongbokgung Station Exit 5<br>
+  <strong>Getting there:</strong> Myeongdong Stn (Line 4) → Chungmuro (transfer Line 3) → Gyeongbokgung (~20 min, ₩1,450).<br>
+  Opens 9am. <strong>Guard changing ceremony at 10am</strong> — highly recommended, worth timing. ₩3,000 entry. Allow 1–1.5h.<br>
+  <strong>Sidequest:</strong> Rent a hanbok (traditional dress) for ₩15,000 from any of the rental shops on the east side — entry is FREE with hanbok and you'll look great in photos.</div></div>
+
+  <div class="pc"><div class="pch">10:30 — Bukchon Hanok Village</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Bukchon+Hanok+Village+Seoul" target="_blank">Gye-dong, Jongno-gu</a> · 15 min walk northeast from palace<br>
+  600+ traditional Korean hanok houses on winding hillside alleys. One of the most photographed streetscapes in Asia. Free, no entry. Most beautiful in the morning light. Walk north from the palace along Bukchon-ro.<br>
+  <strong>Sidequest:</strong> Insadong (10 min walk south) — artisan district, pottery, calligraphy, Korean tea houses, Ssamziegil courtyard. Good for a 20-min browse if time allows.</div></div>
+
+  <div class="pc"><div class="pch">12:00 — Gwangjang Market · Last Seoul Meal</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Gwangjang+Market+Seoul" target="_blank">88 Changgyeonggung-ro, Jongno-gu</a> · Jongno 5-ga Station Exit 8<br>
+  Korea's oldest continuously operating market (1905). Go straight to the indoor food hall. Get: <strong>bindaetteok</strong> (mung bean pancakes, fried tableside), <strong>mayak gimbap</strong> (tiny addictive rice rolls), <strong>yukhoe</strong> (raw beef tartare). Cash only. ₩10,000–20,000.<br>
+  <strong>⚠ Leave Gwangjang by 12:45 max.</strong></div></div>
+
+  <div class="pc" style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,100,100,0.2);">
+    <div class="pch">⚠ 13:00 — HARD DEPARTURE · AREX to ICN</div>
+    <div class="pcb"><strong>Do not miss OZ751 — 16:10 from ICN T2.</strong><br>
+    13:00 → Subway or taxi to Seoul Station (allow 25 min from Gwangjang)<br>
+    13:25 → AREX Express departs Seoul Station → arrives ICN T1 14:08<br>
+    14:10 → Free shuttle train T1 → T2 (20 min) → arrive T2 14:30<br>
+    14:30 → OZ751 check-in counter (closes 60 min before departure = 15:10). You're fine.<br>
+    16:10 → OZ751 departs ICN T2 · Seat 37H · 6h 20m → lands SIN T3 21:30 SGT</div>
+  </div>
+
+  <div class="psub">🍽 Food Highlights · Seoul</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:2;">
+    <strong>Born & Bred</strong> (BOOKED ✓) — Hanwoo omakase, chef-cooked, 7 seats, ₩380k<br>
+    <strong>Gwangjang Market</strong> — bindaetteok + mayak gimbap + yukhoe, cash only, ₩15–20k<br>
+    <strong>Siloam Bulgama</strong> — jjimjilbang food: hard-boiled eggs + sikhye (sweet rice drink)<br>
+    <strong>Myeongdong street food</strong> — tteokbokki, hotteok, tornado potato, corn dogs<br>
+    <strong>Sidequest:</strong> Tosokchon Samgyetang near Gyeongbokgung — ginseng chicken soup in a clay pot, legendary, opens 10am. Worth it if you have 45 min extra. <a href="https://maps.google.com/?q=Tosokchon+Samgyetang+Seoul" target="_blank">↗ Maps</a>
+  </div></div>
+
+  <div class="psub">💰 Seoul Money + Logistics</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:1.8;">
+    <strong>Currency:</strong> Korean Won (KRW). ₩1,000 = ~CAD $1.10.<br>
+    <strong>Best FX:</strong> Withdraw at KEB Hana or Woori ATM at ICN airport on arrival. Skip airport exchange counters (bad rates). Or use Wise card pre-loaded with KRW.<br>
+    <strong>Est. cash needed:</strong> ₩50,000–70,000 (Born & Bred on card, market + transport in cash)<br>
+    <strong>Transport:</strong> T-money card works on all subways + buses + AREX local. AREX Express is a separate ticket (₩11,000 ICN→Seoul Stn). Tap in and out.<br>
+    <strong>Taxi apps:</strong> KakaoTaxi or Uber both work in Seoul. Prices in KRW.<br>
+    <strong>Electrical:</strong> Type C/F (220V, round 2-pin). Universal adapter needed. Most phone/laptop chargers are 100–240V — check the label on the brick.
+  </div></div>
+</div>
+</div>
+
+<!-- ════════════════ SINGAPORE ════════════════ -->
+<div class="view" id="sg">
+<div class="panel">
+  <div class="ptitle">🇸🇬 Singapore — May 17–19 + May 25 (via JB)</div>
+
+  <div class="pc" style="border-left:3px solid #d4af37;">
+    <div class="pch">🏨 BEAT 1932 Hostel · Chinatown · BOOKED ✓</div>
+    <div class="pcb">📍 <a href="https://maps.google.com/?q=BEAT+1932+Hostel+237+South+Bridge+Road+Singapore" target="_blank">237 South Bridge Road, Singapore 058786</a> · Agoda #1001250522<br>
+    Covers: May 17 (arrive 21:30), 18, 19 (check out by 11:00)<br>
+    <strong>Location:</strong> 5 min walk Maxwell Food Centre · 8 min walk Tanjong Pagar MRT (EW line) · 10 min walk Merlion Park · 15 min walk MBS<br>
+    <strong>May 24 night:</strong> Sleeping in Malaysia (Z Hotel JB) — no SG hostel needed<br>
+    <strong>Electrical:</strong> Singapore uses Type G (UK 3-pin, 230V). Same as Malaysia. Universal adapter needed. Almost identical plug to UK.</div>
+  </div>
+
+  <div class="psub">📋 Itinerary — May 17 (Sun) · Arrive 21:30</div>
+
+  <div class="pc"><div class="pch">21:30 — Land SIN T3 · OZ751</div>
+  <div class="pcb"><strong>Immigration → Baggage → Exit</strong><br>
+  <strong>To hostel:</strong> MRT from T3 (CG line) → Tanah Merah → EW line to Raffles Place → 8 min walk to BEAT (40 min total, ~SGD 2.50). Or taxi ~SGD 25, 25 min.<br>
+  Buy EZ-Link card at airport convenience store or any MRT station (SGD 12 incl. SGD 7 stored value). Works on all MRT + buses.<br>
+  <a href="https://maps.google.com/?q=Changi+Airport+Terminal+3+Singapore" target="_blank">↗ Changi T3 Maps</a></div></div>
+
+  <div class="pc"><div class="pch">22:30 — Newton Food Centre · Late Supper</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Newton+Food+Centre+500+Clemenceau+Ave+North+Singapore" target="_blank">500 Clemenceau Ave North</a> · Newton MRT (DT/NS lines)<br>
+  Open till 2–3am. Get: char-grilled satay (chicken + mutton), oyster omelette (orh jian), BBQ stingray with sambal, cold Tiger beer. ~SGD 25–35. The right first-night-in-SG meal after a long flight.<br>
+  <strong>Getting back:</strong> Newton MRT → Raffles Place (NS+EW) → 8 min walk to BEAT. Trains till 00:30.</div></div>
+
+  <div class="psub">📋 Itinerary — May 18 (Mon) · Full Day</div>
+
+  <div class="pc"><div class="pch">08:30 — Killiney Kopitiam 1919 · Breakfast</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Killiney+Kopitiam+67+Killiney+Road+Singapore" target="_blank">67 Killiney Road, Orchard</a> · 8 min from BEAT via MRT (Tanjong Pagar → Somerset)<br>
+  The original 1919 branch. Kaya toast (coconut jam on charcoal-toasted bread) + 2 soft-boiled eggs + kopi-O (black coffee, old-school SG style). ~SGD 6. Non-negotiable SG morning ritual.<br>
+  <strong>Sidequest:</strong> Walk down Orchard Road after (10 min) — ION Orchard, Takashimaya, Ngee Ann City. SG's main luxury shopping strip. Also near OWNDAYS ION Orchard (#B2-69) if you want glasses.</div></div>
+
+  <div class="pc"><div class="pch">09:30 — Gardens by the Bay · Flower Dome + Cloud Forest</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Gardens+by+the+Bay+18+Marina+Gardens+Drive+Singapore" target="_blank">18 Marina Gardens Drive</a> · MRT to Bayfront (CE/DT lines) · 5 min walk<br>
+  <strong>Book timed entry tonight (May 17)</strong> at gardensbythebay.com.sg · 09:30 slot · ~SGD 53 for both domes<br>
+  Flower Dome: world's largest glass greenhouse, Mediterranean flora. Cloud Forest: 35m indoor waterfall inside a mountain-shaped dome. Both genuinely spectacular. Allow 2–2.5h.<br>
+  <strong>Sidequest:</strong> Supertree Grove is free to walk through after. Grab a coconut from a stall. The Skyway bridge between Supertrees costs SGD 14 — skip unless you love heights.</div></div>
+
+  <div class="pc"><div class="pch">12:30 — Lau Pa Sat + Satay Street · Lunch</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Lau+Pa+Sat+18+Raffles+Quay+Singapore" target="_blank">18 Raffles Quay, CBD</a> · 5 min walk from Raffles Place MRT<br>
+  Historic 1894 Victorian cast-iron market hall in the CBD. Satay Street (Boon Tat St, outside the hall) opens at noon — 100m of charcoal-grilled satay stalls with peanut sauce and ketupat rice cakes. Get hokkien mee, rojak, or laksa inside. End with chendol (coconut milk shaved ice). ~SGD 20–25.</div></div>
+
+  <div class="pc"><div class="pch">13:30 — Sentosa · Palawan or Siloso Beach</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Palawan+Beach+Sentosa+Singapore" target="_blank">Palawan Beach, Sentosa Island</a><br>
+  <strong>Getting there:</strong> Tanjong Pagar MRT (EW) → HarbourFront (2 stops) → Sentosa Express monorail (SGD 4 return). 25 min total.<br>
+  Palawan Beach: calmer, less crowded. Siloso: more bars and activity. Swim, rent a sunbed (SGD 5), cold beer (SGD 10). Back by 17:00 — need to shower and change before Les Amis.<br>
+  <strong>Sidequest:</strong> iFly Singapore (indoor skydiving, ~SGD 89) is right at Siloso Beach if you're feeling adventurous. No booking needed same-day usually.</div></div>
+
+  <div class="pc"><div class="pch">17:00 — Back to hostel · Shower + Change</div>
+  <div class="pcb">Smart casual required for Les Amis. Shirt + trousers minimum. The restaurant is fine dining — dress accordingly.</div></div>
+
+  <div class="pc"><div class="pch">19:30 — Les Amis · Dinner · BOOKED ✓</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Les+Amis+Restaurant+1+Scotts+Road+Singapore" target="_blank">1 Scotts Road, #01-16 Shaw Centre, Singapore 228208</a><br>
+  <strong>Getting there:</strong> Taxi from BEAT ~15 min, ~SGD 15. Confirm address with driver: "Shaw Centre, Scotts Road, opposite Orchard Hotel."<br>
+  3 Michelin stars. Classic French haute cuisine. One of only two 3-star restaurants in Singapore. Opened 1994 — one of Asia's most storied fine dining institutions. Allow 2.5–3h.<br>
+  Confirmed: 1 guest · 19:30 · SevenRooms booking</div></div>
+
+  <div class="pc"><div class="pch">22:00 — G.Spa · Men's Sauna · Optional</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=G+Spa+102+Guillemard+Road+Singapore" target="_blank">102 Guillemard Road, #02-02</a> · Open 24h<br>
+  Post-Les Amis wind-down. Men-only sauna + cold plunge. SGD 72 covers all facilities + free-flow food and drinks. Grab from Shaw Centre ~10 min. Sleep well — Scoot departs 14:00 tomorrow.</div></div>
+
+  <div class="psub">📋 Itinerary — May 19 (Tue) · Fly to Bali</div>
+
+  <div class="pc"><div class="pch">09:00 — Check out BEAT · Head to Changi</div>
+  <div class="pcb">Check out by 11:00. Ya Kun Kaya Toast at Changi (all terminals) for last SG breakfast. <a href="https://maps.google.com/?q=Ya+Kun+Kaya+Toast+Changi+Airport+Singapore" target="_blank">↗ Maps</a><br>
+  <strong>To airport:</strong> Tanjong Pagar MRT (EW) → Tanah Merah → CG line → Changi (40 min, SGD 2.20). Check Scoot's terminal — usually T1 or T2.<br>
+  <strong>Scoot:</strong> 14:00 SIN → 16:35 DPS WITA. 2h 35m. Wedding starts from here.</div></div>
+
+  <div class="psub">📋 May 25 (Mon) · Return from JB · Final Hours in SIN</div>
+
+  <div class="pc"><div class="pch">17:00 — Back in Singapore from JB</div>
+  <div class="pcb">Cross from JB Checkpoint → Woodlands → MRT to Changi T2 (~50 min).<br>
+  <strong>Jewel Changi</strong> — <a href="https://maps.google.com/?q=Jewel+Changi+Airport+Singapore" target="_blank">↗ Maps</a> — the Rain Vortex (world's tallest indoor waterfall, 40m) is airside-accessible via T1/T2/T3 walkway. Free to walk through. Good last SG experience.<br>
+  Get a final meal at Jewel's hawker stalls or Tim Ho Wan dim sum. Check in LH769 at T2 by 21:00. Gate by 22:15. Departs 22:45.<br>
+  <strong>⚠ T2 — not T3 where SQ939 arrived on May 24.</strong></div></div>
+
+  <div class="psub">💰 Singapore Money + Logistics</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:1.8;">
+    <strong>Currency:</strong> SGD. SGD 1 = ~CAD $1.05. Almost entirely cashless — card works at hawker centres now.<br>
+    <strong>Best FX:</strong> The Arcade money changers, Change Alley, Raffles Place (best rates in SG). Or Wise card. Get SGD 50–100 cash max.<br>
+    <strong>Est. spend:</strong> ~SGD 250–350 (excl. Les Amis)<br>
+    <strong>Transport:</strong> EZ-Link card (buy at airport, SGD 12 incl. SGD 7 value). Tap in and out of all MRT + buses. Grab for taxis.<br>
+    <strong>Electrical:</strong> Type G (UK 3-pin, 230V). Same as Malaysia. Universal adapter covers both.<br>
+    <strong>Data:</strong> Airalo eSIM (Asia regional) or local Singtel/StarHub SIM at Changi (~SGD 15 for 10GB).
+  </div></div>
+</div>
+</div>
+
+<!-- ════════════════ MALAYSIA ════════════════ -->
+<div class="view" id="my">
+<div class="panel">
+  <div class="ptitle">🇲🇾 Malaysia — Johor Bahru · May 24–25</div>
+
+  <div class="pc" style="border-left:3px solid #d4af37;">
+    <div class="pch">🏨 Z Hotel · Jalan Wong Ah Fook · BOOKED ✓</div>
+    <div class="pcb">📍 <a href="https://maps.google.com/?q=Z+Hotel+18+Jalan+Wong+Ah+Fook+Johor+Bahru" target="_blank">18 Jalan Wong Ah Fook, Johor Bahru</a> · Agoda #1001288518<br>
+    Check-in: May 24 ~18:30 MYT · Check-out: May 25 (leave by 15:30 latest)<br>
+    <strong>Location:</strong> Heart of JB city centre — Jalan Wong Ah Fook is JB's main commercial street. 10 min walk to JB Checkpoint (CIQ). Walking distance to all key food spots.<br>
+    <strong>Electrical:</strong> Malaysia uses Type G (UK 3-pin, 240V). Same adapter as Singapore. Universal travel adapter covers this.</div>
+  </div>
+
+  <div class="psub">🔑 Logistics · Getting There + Back</div>
+
+  <div class="pc" style="background:rgba(255,200,80,0.05);border:1px solid rgba(255,200,80,0.15);">
+    <div class="pch">MDAC — Fill BEFORE Crossing</div>
+    <div class="pcb"><strong>mymadac.com.my</strong> — Malaysia Digital Arrival Card. Free, 5 min. Fill on May 23 (night before). For accommodation: "Z Hotel, 18 Jalan Wong Ah Fook, Johor Bahru." Canadian passport = visa-free, 90 days.<br>
+    <strong>Passport required</strong> — don't leave it at BEAT hostel on May 24 morning.</div>
+  </div>
+
+  <div class="pc"><div class="pch">Crossing Into JB (May 24 ~16:30 from Changi)</div>
+  <div class="pcb">
+  <strong>16:00</strong> — Land SIN T3 (SQ939) → clear SIN immigration<br>
+  <strong>16:45</strong> — MRT: Changi T3 (CG line) → Tanah Merah → EW line → City Hall → NS line → Woodlands. Total ~50 min, SGD 2.50. <a href="https://maps.google.com/?q=Woodlands+MRT+Station+Singapore" target="_blank">↗ Woodlands MRT</a><br>
+  <strong>17:45</strong> — Bus 950 / CW1 from Woodlands bus interchange → JB CIQ (~10 min, SGD 1.80 EZ-Link)<br>
+  <strong>17:55</strong> — Woodlands CIQ: clear Singapore exit stamp<br>
+  <strong>18:00</strong> — Causeway crossing<br>
+  <strong>18:15</strong> — JB CIQ: clear Malaysian immigration (Sunday PM — allow 30–45 min)<br>
+  <strong>18:45</strong> — In JB. <strong>Grab to Z Hotel: 10 min, ~RM 8</strong>. Or walk (~15 min).
+  </div></div>
+
+  <div class="pc"><div class="pch">Crossing Back to SG (May 25 ~15:30)</div>
+  <div class="pcb">
+  <strong>15:30</strong> — Grab from Z Hotel to JB CIQ (~10 min)<br>
+  <strong>15:45</strong> — Clear Malaysian exit stamp<br>
+  <strong>16:00</strong> — Causeway / bus back to Woodlands CIQ<br>
+  <strong>16:15</strong> — Clear Singapore immigration at Woodlands (Monday PM — lighter traffic)<br>
+  <strong>16:30</strong> — Woodlands MRT → Changi T2 (~50 min, NS→EW line)<br>
+  <strong>17:30</strong> — <strong>At Changi T2. 5+ hours until LH769 22:45.</strong>
+  </div></div>
+
+  <div class="pc" style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,100,100,0.2);">
+    <div class="pch">⚠ Non-Negotiable: Leave JB by 15:30 at the LATEST</div>
+    <div class="pcb">LH769 departs <strong>22:45 from Changi T2</strong> (not T3). Check-in closes 21:45. You need to be at T2 by 21:00. Border crossing + MRT takes ~2h from JB. 15:30 departure gives you a 6h buffer. Do not cut it close — this is your flight home.</div>
+  </div>
+
+  <div class="psub">📋 Itinerary — May 24 (Sun) · Arrive Evening</div>
+
+  <div class="pc"><div class="pch">18:45 — Check In · Z Hotel</div>
+  <div class="pcb">Drop bags. Freshen up. Jalan Wong Ah Fook is right outside — city buzz, street food nearby.<br>
+  <strong>Currency:</strong> Ringgit (MYR). RM 1 = ~SGD 0.32, ~CAD $0.34. Everything is ~3x cheaper than SG. Withdraw RM 200–300 at any ATM in JB (Maybank or CIMB recommended).</div></div>
+
+  <div class="pc"><div class="pch">19:30 — Dinner · Two Options</div>
+  <div class="pcb">
+  <strong>Option A — Binchotan JB (RECOMMENDED)</strong> · 📍 <a href="https://maps.google.com/?q=Binchotan+Restaurant+Johor+Bahru" target="_blank">↗ Maps</a><br>
+  12-seat omakase, Tatler Dining top 20 Malaysia 2024. Hokkaido scallops, A5 Wagyu, meticulous multi-course tasting. The JB equivalent of what you did at Born & Bred in Seoul. Must book ahead (Instagram DM or call).<br><br>
+  <strong>Option B — Chez Papa</strong> · 📍 <a href="https://maps.google.com/?q=Chez+Papa+38+Jalan+Jaya+Johor+Bahru" target="_blank">38 Jalan Jaya</a><br>
+  Best European bistro in JB. Steak frites, sea bass, daily specials, excellent wine list. Complimentary reserved parking. Great if you want a relaxed evening rather than omakase.
+  </div></div>
+
+  <div class="psub">📋 Itinerary — May 25 (Mon) · Full Day · Leave by 15:30</div>
+
+  <div class="pc"><div class="pch">08:30 — Breakfast · Kacang Pool</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Restoran+Kacang+Pool+Haji+Johor+Bahru" target="_blank">Restoran Kacang Pool Haji, Johor Bahru</a><br>
+  JB's most iconic dish — <strong>kacang pool</strong>: spiced fava beans cooked in a thick tomato-herb sauce, served with thick toasted bread. You will not find this dish anywhere else in the world outside of Johor. ~RM 8. Eat on the street or inside. Start the morning right.</div></div>
+
+  <div class="pc"><div class="pch">09:30 — Jalan Tan Hiok Nee · Heritage Street</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Jalan+Tan+Hiok+Nee+Johor+Bahru" target="_blank">Jalan Tan Hiok Nee, JB</a> · 5 min Grab from hotel or 20 min walk<br>
+  JB's most charming heritage street — art deco shophouses, street art murals, indie cafes, clothing boutiques. Go to the <strong>banana cake bakery at #13</strong> (opens 9am, often sells out by 11am). Grab a cup of kopi from any kopitiam. Walk the full length (~300m) and back.<br>
+  <strong>Sidequest:</strong> Jalan Dhoby (parallel street) — Melbourne-inspired specialty coffee shops, quiet morning vibe. Good if you want a proper flat white.</div></div>
+
+  <div class="pc"><div class="pch">10:30 — Johor Old Chinese Temple + Sultan Abu Bakar Mosque</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Johor+Old+Chinese+Temple+Johor+Bahru" target="_blank">Johor Old Chinese Temple ↗</a> · 📍 <a href="https://maps.google.com/?q=Sultan+Abu+Bakar+State+Mosque+Johor+Bahru" target="_blank">Sultan Abu Bakar Mosque ↗</a><br>
+  Both within 10 min walk of Jalan Tan Hiok Nee. The mosque overlooks the Straits of Johor — one of the most beautiful colonial mosques in Malaysia. Free to visit outside of prayer times. Good photos.</div></div>
+
+  <div class="pc"><div class="pch">12:00 — Lunch · Curry Fish Head</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Kam+Long+Curry+Fish+Head+Johor+Bahru" target="_blank">Kam Long Ah Zai Curry Fish Head, Johor Bahru</a><br>
+  Since 1983. The JB institution. Rich claypot curry with a generous fish head, cabbage, tofu puffs — the broth is complex and deeply spiced. ~RM 35 for the pot (shareable if you brought someone, or have it yourself). Expect a queue — this is normal and moves fast.<br>
+  <strong>After lunch:</strong> Kway Teow Kia at Restoran Woon Kiang nearby — <a href="https://maps.google.com/?q=Restoran+Woon+Kiang+Johor+Bahru" target="_blank">↗ Maps</a> — flat rice noodles in herbal soy broth with braised duck. Distinctly Johorean, not in Singapore.</div></div>
+
+  <div class="pc"><div class="pch">13:30 — Shopping · City Square / KSL City</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=City+Square+Mall+Johor+Bahru" target="_blank">City Square Mall</a> · 10 min walk or 5 min Grab from Kam Long<br>
+  MYR goes ~3x vs SGD — clothes, shoes, electronics, food all significantly cheaper. Popular with Singaporeans who cross specifically to shop. Air-conditioned, good for the midday heat.<br>
+  <strong>Sidequest:</strong> KSL City (slightly further, Grab needed) is larger and more local with a big food court on the top floor.</div></div>
+
+  <div class="pc"><div class="pch">15:00 — Wind Down · Teh Tarik Before Leaving</div>
+  <div class="pcb">Any kopitiam on the way back toward the checkpoint. Teh tarik (pulled milk tea, frothy and sweet) + roti canai if hungry. The Malaysian version of SG's kaya toast ritual. ~RM 5.<br>
+  <strong>15:30 → Leave for JB Checkpoint by Grab.</strong></div></div>
+
+  <div class="psub">🍽 Malaysia Food Reference</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:2;">
+    <strong>Kacang Pool</strong> — uniquely Johorean, nowhere else in world · Restoran Kacang Pool Haji · ~RM 8<br>
+    <strong>Curry Fish Head</strong> — JB institution since 1983 · Kam Long Ah Zai · ~RM 35<br>
+    <strong>Kway Teow Kia</strong> — braised duck in herbal soy broth · Restoran Woon Kiang · ~RM 12<br>
+    <strong>Banana Cake</strong> — 13 Jalan Tan Hiok Nee bakery · often sells out · ~RM 5<br>
+    <strong>Teh Tarik + Roti Canai</strong> — any kopitiam · ~RM 5<br>
+    <strong>Binchotan JB</strong> — 12-seat omakase, Tatler top 20 Malaysia · book ahead<br>
+    <strong>Chez Papa</strong> — European bistro, 38 Jalan Jaya · great wine list
+  </div></div>
+
+  <div class="psub">💰 Malaysia Money + Logistics</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:1.8;">
+    <strong>Currency:</strong> Malaysian Ringgit (MYR). RM 1 = ~SGD 0.32 = ~CAD $0.34. Everything ~3x cheaper than SG.<br>
+    <strong>ATM:</strong> Withdraw at Maybank or CIMB in JB on arrival. RM 200–300 sufficient. Avoid airport-style standalone ATMs with high fees.<br>
+    <strong>Cards:</strong> Grab works in Malaysia with SG account (charges in MYR). Visa/MC accepted at malls and restaurants. Kopitiams and market stalls = cash.<br>
+    <strong>Grab:</strong> Your SG Grab account works. Set pickup to JB address. ~RM 8–15 for most in-city rides.<br>
+    <strong>Electrical:</strong> Type G (UK 3-pin, 240V) — same as Singapore. Universal adapter covers both.<br>
+    <strong>Language:</strong> Bahasa Malaysia, but English universally understood in JB (esp. in tourist areas and restaurants).<br>
+    <strong>No vaping:</strong> Vaping is illegal in Singapore. Do not bring any vaping equipment back across the border.
+  </div></div>
+</div>
+</div>
+
+<!-- ════════════════ MUNICH ════════════════ -->
+<div class="view" id="munich">
+<div class="panel">
+  <div class="ptitle">🇩🇪 Munich — Tue May 26 · ~10h Layover</div>
+
+  <div class="pc" style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,100,100,0.2);">
+    <div class="pch">⚠ Flight Constraints</div>
+    <div class="pcb"><strong>Land MUC T2:</strong> 05:15 CET · <strong>LH494 departs MUC T2:</strong> 15:50 CET<br>
+    <strong>Be at gate by:</strong> 14:30 · <strong>Back at MUC by:</strong> 13:30 latest<br>
+    S-Bahn to city: 40 min · So you have <strong>~7 usable hours in the city</strong> (06:00–13:00)<br>
+    <strong>Electrical:</strong> Germany uses Type C/F (220V, round 2-pin). Same as Korea. Universal adapter covers.</div>
+  </div>
+
+  <div class="pc" style="border-left:3px solid #4090c0;">
+    <div class="pch">🧳 Left Luggage at MUC T2</div>
+    <div class="pcb">Leave bags at left luggage counter in T2 arrivals. ~€8–10/bag. Open 24h. <a href="https://maps.google.com/?q=Munich+Airport+Terminal+2" target="_blank">↗ T2 Maps</a><br>
+    Take only day bag into the city. LH494 check-in at T2 is same terminal as arrival.</div>
+  </div>
+
+  <div class="psub">📋 Itinerary — May 26 (Tue)</div>
+
+  <div class="pc"><div class="pch">05:15 — Land MUC T2 · Clear Immigration</div>
+  <div class="pcb">EU/Schengen entry — fast. No visa needed (Canadian, 90-day visa-free Schengen).<br>
+  <strong>To city:</strong> S-Bahn S1 or S8 from MUC Airport → Marienplatz. Buy a day ticket (Tageskarte, €13.60) — covers all S-Bahn and U-Bahn all day including return trip. From Airport Zone, covers everything. Buy at blue ticket machine on the platform. <a href="https://maps.google.com/?q=Munich+Airport+S-Bahn+Station" target="_blank">↗ Maps</a></div></div>
+
+  <div class="pc"><div class="pch">07:00 — Marienplatz · Old Town Orientation</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Marienplatz+Munich+Germany" target="_blank">Marienplatz, Altstadt, Munich</a> · S-Bahn + U-Bahn: Marienplatz station<br>
+  Munich's central square. Neues Rathaus (New Town Hall) with the famous <strong>Glockenspiel</strong> — mechanical figures perform at <strong>11am and noon</strong>. At 7am you'll have the square almost to yourself. Frauenkirche (twin-tower cathedral) is 3 min walk west.</div></div>
+
+  <div class="pc"><div class="pch">07:30 — Viktualienmarkt · Weisswurst Breakfast</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Viktualienmarkt+Munich+Germany" target="_blank">Viktualienmarkt, 2 min walk from Marienplatz</a> · Opens 7am<br>
+  Munich's famous open-air market. Get the <strong>Weisswurst breakfast</strong> — white veal sausages (you suck the meat out of the skin with your mouth, don't cut it), sweet Bavarian mustard, a pretzel, and a Weissbier (morning beer is culturally correct here — Weisswurst must be eaten before noon). ~€12–15. This is the single most authentically Bavarian experience you can have in one sitting.<br>
+  <strong>Sidequest:</strong> Browse the Dallmayr Delicatessen (#3 Dienerstr, 2 min from Marienplatz) — one of Europe's finest food halls since 1700. Ground floor free. Smoked fish, Bavarian cheeses, wine, chocolates. <a href="https://maps.google.com/?q=Dallmayr+Delikatessen+Munich" target="_blank">↗ Maps</a></div></div>
+
+  <div class="pc"><div class="pch">09:00 — Asamkirche · Hidden Baroque Masterpiece</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Asamkirche+Sendlinger+Strasse+Munich" target="_blank">Sendlinger Str. 32</a> · 5 min walk from Marienplatz<br>
+  One of Europe's most extraordinary small churches — the Asam brothers built it in 1746, crammed with ornate frescoes, gold stucco, and a gilded high altar in a tiny space. Free entry, 15 min. Almost no tourists find this. Don't skip it.</div></div>
+
+  <div class="pc"><div class="pch">09:30 — Residenz Munich · Royal Palace</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Residenz+Munich+Germany" target="_blank">Residenzstrasse 1, Altstadt</a> · 5 min walk from Marienplatz<br>
+  Former royal palace of the Bavarian monarchs. 130 rooms spanning Renaissance, Baroque, Rococo and Neoclassical. One of the most significant royal collections in Europe. Opens 9am. ~€9. Allow 45–60 min.<br>
+  <strong>Sidequest:</strong> MUCA Museum (Museum of Urban and Contemporary Art) — original Banksy, Shepard Fairey, Os Gemeos. ~€14. Near Marienplatz. Good if you love street art. <a href="https://maps.google.com/?q=MUCA+Museum+Munich+Germany" target="_blank">↗ Maps</a></div></div>
+
+  <div class="pc"><div class="pch">11:00 — Glockenspiel Performance · Marienplatz</div>
+  <div class="pcb">Back to Marienplatz for 11am. The 32 life-size mechanical figures perform a 15-min show from the Neues Rathaus tower. Worth watching once. The noon performance is identical but more crowded. <a href="https://maps.google.com/?q=Glockenspiel+Marienplatz+Munich" target="_blank">↗ Maps</a></div></div>
+
+  <div class="pc"><div class="pch">11:30 — English Garden + Eisbach Surfers</div>
+  <div class="pcb">📍 <a href="https://maps.google.com/?q=Eisbach+Wave+English+Garden+Munich" target="_blank">Eisbach Wave, English Garden, Munich</a> · 20 min walk north or U-Bahn U3/U6 to Universität<br>
+  Larger than Central Park. The Eisbach river wave — surfers ride a permanent standing wave in the centre of the city, year-round, daily. Free to watch. One of Munich's most unique sights. Walk into the park north of the wave toward <strong>Chinesischer Turm beer garden</strong> for a beer under a wooden pagoda. Opens 10am in May. <a href="https://maps.google.com/?q=Chinesischer+Turm+Beer+Garden+Munich" target="_blank">↗ Maps</a><br>
+  <strong>Sidequest:</strong> Walk south along the Isar River banks — locals sunbathe on gravel beaches in May, drinking beer. Completely off the tourist trail. Reichenbachbrücke bridge has the best city view. <a href="https://maps.google.com/?q=Isar+River+Munich+Reichenbachbrucke" target="_blank">↗ Maps</a></div></div>
+
+  <div class="pc"><div class="pch">12:30 — Back to MUC · S-Bahn</div>
+  <div class="pcb"><strong>Leave English Garden by 12:30 max.</strong> Walk or U-Bahn to Marienplatz → S-Bahn S1/S8 to MUC Airport (40 min). Arrive T2 ~13:15. Check in LH494, clear security, head to gate.<br>
+  <strong>Airside T2: Airbräu Airport Brewery</strong> — <a href="https://maps.google.com/?q=Airbrau+Brewery+Munich+Airport+Terminal+2" target="_blank">↗ Maps</a> — world's only airport brewery, right inside T2. Fresh-brewed Helles, Dunkel, seasonal lagers. Pork knuckle and pretzels. No re-security needed. One of the best airport food experiences in the world. Opens 9am. ~€25 for a meal + beer.<br>
+  <strong>LH494 departs:</strong> 15:50 CET T2 · 8h 40m · A359 · No seat assigned · Lands YYZ T1 18:30 EDT</div></div>
+
+  <div class="psub">🍽 Munich Food Reference</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:2;">
+    <strong>Viktualienmarkt</strong> — Weisswurst + Weissbier + pretzel breakfast · Opens 7am · ~€15<br>
+    <strong>Augustiner Bräustuben</strong> — real beer hall (not Hofbräuhaus) · Landsberger Str. 19 · <a href="https://maps.google.com/?q=Augustiner+Braustube+Landsberger+Strasse+Munich" target="_blank">↗ Maps</a><br>
+    <strong>Chinesischer Turm Beer Garden</strong> — best outdoor beer garden in Munich · Opens 10am<br>
+    <strong>Airbräu Brewery</strong> — MUC T2 airside · world's only airport brewery · ~€25<br>
+    <strong>Future visit:</strong> Tohru in der Schreiberei ⭐⭐⭐ (only 3-star Munich) · Tantris ⭐⭐ (legendary since 1971)
+  </div></div>
+
+  <div class="psub">💰 Munich Money + Logistics</div>
+  <div class="pc"><div class="pcb" style="font-size:10px;line-height:1.8;">
+    <strong>Currency:</strong> Euro (EUR). €1 = ~CAD $1.50. Germany is more cash-friendly than SG — some beer halls and markets prefer cash.<br>
+    <strong>Best FX:</strong> Withdraw €100 at MUC airport ATM (Sparkasse machines, avoid Travelex). Or Wise card.<br>
+    <strong>Transport:</strong> S-Bahn day ticket Tageskarte €13.60 (buy at airport, covers all transit all day including return to MUC). Tap/scan at barriers.<br>
+    <strong>Electrical:</strong> Type C/F (220V, round 2-pin) — same as Korea. Universal adapter covers both.
+  </div></div>
+</div>
+</div>
+
+<!-- ════════════════ MAPS ════════════════ -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div class="view" id="maps">
+<div class="panel">
+  <div class="ptitle">🗺 Maps — All Recommendations</div>
+  <div class="pcb" style="margin-bottom:14px;font-size:10px;color:rgba(242,234,216,0.5)">Tap a city, pinch/zoom the map, tap any pin for details, tap a card to open in Google Maps.</div>
+
+  <div class="city-btns" style="flex-wrap:wrap;">
+    <button id="mbtn-seoul" class="city-btn" onclick="mswitch('seoul')" style="border-color:#8040d0;background:rgba(128,64,208,0.25);color:#c080e8;font-weight:700;">🇰🇷 Seoul</button>
+    <button id="mbtn-singapore" class="city-btn" onclick="mswitch('singapore')">🇸🇬 Singapore</button>
+    <button id="mbtn-malaysia" class="city-btn" onclick="mswitch('malaysia')">🇲🇾 Malaysia</button>
+    <button id="mbtn-munich" class="city-btn" onclick="mswitch('munich')">🇩🇪 Munich</button>
+  </div>
+
+  <div id="mctx" class="pc" style="font-size:10px;margin-bottom:10px;"></div>
+  <a id="mall-btn" href="#" target="_blank" style="display:block;background:var(--gold);color:#000;text-align:center;padding:10px 16px;border-radius:8px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1.5px;text-decoration:none;text-transform:uppercase;margin-bottom:10px;">🗺 Open All in Google Maps ↗</a>
+
+  <div class="map-wrap"><div id="trip-map"></div></div>
+
+  <div id="mlegend" class="mlegend"></div>
+</div>
+</div>
+
+
+<!-- ════════════════ TASKS ════════════════ -->
+<div class="view" id="book">
+<div class="panel">
+  <div class="ptitle">✅ Task Checklist</div>
+  <div class="pcb" style="margin-bottom:8px;font-size:10px;color:rgba(242,234,216,0.5)">Check off tasks as you complete them. Saves automatically.</div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+  <div class="progress-label" id="prog-label">0 / 0 tasks complete</div>
+
+  <div class="psub" style="color:#ff6060;">🔴 Urgent — Do Today</div>
+  <div class="task-item" id="t-sg_hotel_1718" onclick="toggleTask('sg_hotel_1718')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Book Singapore hostel — May 17 + 18 (2 nights) 🔴</div><div class="task-detail">Arrive 21:30 May 17. Check out May 19 by 11:00 (Scoot 14:00). Top picks: Wink Hostel (Upper Cross St), River City Inn (Clarke Quay, incl. breakfast), ST Signature Tanjong Pagar (private ~SGD 100). <a href="https://hostelworld.com" target="_blank">hostelworld.com</a></div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+
+  <div class="task-item" id="t-sg_hotel" onclick="toggleTask('sg_hotel')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Book Singapore hostel — May 24 (1 night) 🔴</div><div class="task-detail">Arrive 16:00 May 24 from Bali. LH769 departs 22:45 May 25 — need 1 night. Same hostel as May 17–18 if possible. <a href="https://hostelworld.com" target="_blank">hostelworld.com</a></div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+  <div class="task-item" id="t-seoul_hostel" onclick="toggleTask('seoul_hostel')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Book Seoul hostel — 1 night (May 16)</div><div class="task-detail">Jongno Stay (near palace) or Zzzip Guesthouse (Hongdae). <a href="https://hostelworld.com" target="_blank">hostelworld.com</a></div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+  <div class="task-item done" id="t-burnt_ends" onclick="toggleTask('burnt_ends')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Les Amis — May 18 dinner ✓</div><div class="task-detail">Confirmed 19:30 · 1 Scotts Rd Shaw Centre · 3 Michelin ⭐⭐⭐</div><div class="task-foot"><span class="cal-badge">📅 Added to calendar</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+  <div class="task-item" id="t-bali_evoa" onclick="toggleTask('bali_evoa')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Apply for Bali e-VOA (visa on arrival, pre-apply)</div><div class="task-detail">~USD $35. Skip airport queues + use e-gates. <a href="https://evisa.imigrasi.go.id" target="_blank">evisa.imigrasi.go.id</a>. Takes 1–3 days.</div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+  <div class="task-item" id="t-travel_insurance" onclick="toggleTask('travel_insurance')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Buy travel insurance (KR + SG + ID + DE)</div><div class="task-detail">Manulife CoverMe Travel or TuGo. Medical evacuation + trip cancellation. ~CAD $80–160.</div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+
+  <div class="psub" style="color:var(--gold);margin-top:16px;">🟡 This Week</div>
+  <div class="task-item" id="t-restaurants_week" onclick="toggleTask('restaurants_week')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Book remaining restaurants (Candlenut, No Signboard, CCW Seoul)</div><div class="task-detail">Candlenut May 25: <a href="https://chope.co" target="_blank">chope.co</a>. No Signboard May 25 lunch: Chope. CCW Seoul: CATCHTABLE app.</div></div></div>
+  <div class="task-item" id="t-esim" onclick="toggleTask('esim')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Buy international eSIM — Asia regional</div><div class="task-detail">Airalo app (covers KR, SG, ID, DE) ~CAD $20–35 for 10GB. <a href="https://airalo.com" target="_blank">airalo.com</a></div></div></div>
+  <div class="task-item" id="t-bank_notify" onclick="toggleTask('bank_notify')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Notify bank of travel (KR, SG, ID, DE)</div><div class="task-detail">Tell your bank all countries and dates. Check for FX fees — use Scotiabank Passport Visa or Rogers World Elite if possible.</div></div></div>
+  <div class="task-item" id="t-check_passport" onclick="toggleTask('check_passport')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Check passport expiry — must be valid past Nov 26, 2026</div><div class="task-detail">If expiring before Nov 26, 2026 → renew now. Standard: 10–15 business days.</div></div></div>
+  <div class="task-item" id="t-currency" onclick="toggleTask('currency')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Sort currency — KRW, SGD, IDR, EUR</div><div class="task-detail">See Pack + Money tab for amounts and best FX rates. Best overall: Wise card.</div></div></div>
+
+  <div class="psub" style="color:#80d080;margin-top:16px;">🟢 May 14 (Day Before Flight)</div>
+  <div class="task-item" id="t-ac61_checkin" onclick="toggleTask('ac61_checkin')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Online check-in AC61 — opens 13:50 EDT May 14</div><div class="task-detail">aircanada.com or AC app. Ref: CN8KTC. Lock in seat 43H immediately.</div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+  <div class="task-item" id="t-arrival_cards_may14" onclick="toggleTask('arrival_cards_may14')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Complete Korea e-Arrival Card + SG Arrival Card (May 17 leg)</div><div class="task-detail">Korea: <a href="https://e-arrivals.kr" target="_blank">e-arrivals.kr</a>. Singapore: <a href="https://eservices.ica.gov.sg/sgarrivalcard" target="_blank">eservices.ica.gov.sg/sgarrivalcard</a></div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+
+  <div class="psub" style="color:#80d080;margin-top:16px;">🟢 May 17 Evening (In Singapore)</div>
+  <div class="task-item" id="t-bali_levy_sgac" onclick="toggleTask('bali_levy_sgac')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Pay Bali Love Bali levy + SG Arrival Card (May 24 return)</div><div class="task-detail">Bali levy IDR 150,000 (~USD $10): <a href="https://lovebali.baliprov.go.id" target="_blank">lovebali.baliprov.go.id</a> → QR code. SG card: eservices.ica.gov.sg/sgarrivalcard.</div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+  <div class="task-item" id="t-gardens_tickets" onclick="toggleTask('gardens_tickets')"><div class="task-cb-wrap"><div class="task-cb"><div class="task-cb-check"></div></div></div><div class="task-body"><div class="task-title">Book Gardens by the Bay tickets (for May 18)</div><div class="task-detail">Timed entry — Flower Dome + Cloud Forest. <a href="https://www.gardensbythebay.com.sg" target="_blank">gardensbythebay.com.sg</a>. ~SGD 53. Book 09:30 slot.</div><div class="task-foot"><span class="cal-badge">📅 Cal reminder set</span><span class="cal-del-badge">📅 Deleted</span></div></div></div>
+</div>
+</div>
+
+<!-- ════════════════ PACK + MONEY ════════════════ -->
+<div class="view" id="pack">
+<div class="panel">
+  <div class="ptitle">🎒 Pack List + Money</div>
+  <div class="psub">📄 Documents</div>
+  <div class="pack-grid">
+    <div class="pack-item" id="p-passport" onclick="togglePack('passport')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Passport (valid past Nov 26)</span></div>
+    <div class="pack-item" id="p-ac_booking" onclick="togglePack('ac_booking')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">AC booking CN8KTC</span></div>
+    <div class="pack-item" id="p-sq_booking" onclick="togglePack('sq_booking')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">SQ939 booking DFYVP9</span></div>
+    <div class="pack-item" id="p-bali_evoa" onclick="togglePack('bali_evoa')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Bali e-VOA approval</span></div>
+    <div class="pack-item" id="p-bali_levy" onclick="togglePack('bali_levy')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Bali Love Bali QR code</span></div>
+    <div class="pack-item" id="p-insurance" onclick="togglePack('insurance')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Travel insurance docs</span></div>
+    <div class="pack-item" id="p-hotel_confirms" onclick="togglePack('hotel_confirms')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Hotel confirmations</span></div>
+    <div class="pack-item" id="p-credit_cards" onclick="togglePack('credit_cards')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Credit cards (notified bank)</span></div>
+  </div>
+  <div class="psub">👔 Clothing</div>
+  <div class="pack-grid">
+    <div class="pack-item" id="p-wedding_outfit" onclick="togglePack('wedding_outfit')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Wedding outfit (carry-on!)</span></div>
+    <div class="pack-item" id="p-tshirts" onclick="togglePack('tshirts')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">T-shirts × 4 (lightweight)</span></div>
+    <div class="pack-item" id="p-shorts" onclick="togglePack('shorts')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Shorts × 3</span></div>
+    <div class="pack-item" id="p-smart_casual" onclick="togglePack('smart_casual')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Smart casual shirt (Les Amis)</span></div>
+    <div class="pack-item" id="p-light_layer" onclick="togglePack('light_layer')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Light jacket (plane + Seoul)</span></div>
+    <div class="pack-item" id="p-socks_undies" onclick="togglePack('socks_undies')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Socks + underwear × 5</span></div>
+    <div class="pack-item" id="p-swimwear" onclick="togglePack('swimwear')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Swim shorts (Bali + Sentosa)</span></div>
+    <div class="pack-item" id="p-comfortable_shoes" onclick="togglePack('comfortable_shoes')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Comfortable walking shoes</span></div>
+    <div class="pack-item" id="p-sandals" onclick="togglePack('sandals')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Sandals / flip flops</span></div>
+    <div class="pack-item" id="p-temple_cover" onclick="togglePack('temple_cover')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Sarong/cover-up (Bali temples)</span></div>
+  </div>
+  <div class="psub">🎧 Tech + Entertainment</div>
+  <div class="pack-grid">
+    <div class="pack-item" id="p-airpods" onclick="togglePack('airpods')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Noise-cancelling headphones (ANC)</span></div>
+    <div class="pack-item" id="p-phone" onclick="togglePack('phone')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Phone + charger</span></div>
+    <div class="pack-item" id="p-power_bank" onclick="togglePack('power_bank')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Portable power bank 20,000mAh+</span></div>
+    <div class="pack-item" id="p-universal_adapter" onclick="togglePack('universal_adapter')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Universal travel adapter</span></div>
+    <div class="pack-item" id="p-ipad_kindle" onclick="togglePack('ipad_kindle')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">iPad / Kindle (loaded)</span></div>
+    <div class="pack-item" id="p-cables" onclick="togglePack('cables')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">USB-C cables × 2</span></div>
+    <div class="pack-item" id="p-camera" onclick="togglePack('camera')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Camera + memory cards</span></div>
+    <div class="pack-item" id="p-neck_pillow" onclick="togglePack('neck_pillow')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Neck pillow (14h+ flights)</span></div>
+    <div class="pack-item" id="p-eye_mask" onclick="togglePack('eye_mask')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Eye mask + earplugs</span></div>
+    <div class="pack-item" id="p-melatonin" onclick="togglePack('melatonin')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Melatonin (jet lag)</span></div>
+  </div>
+  <div class="psub">🧴 Toiletries + Health</div>
+  <div class="pack-grid">
+    <div class="pack-item" id="p-sunscreen" onclick="togglePack('sunscreen')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Sunscreen SPF 50+ (Bali)</span></div>
+    <div class="pack-item" id="p-insect_rep" onclick="togglePack('insect_rep')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Insect repellent DEET (Bali)</span></div>
+    <div class="pack-item" id="p-hand_san" onclick="togglePack('hand_san')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Hand sanitiser</span></div>
+    <div class="pack-item" id="p-meds" onclick="togglePack('meds')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Ibuprofen + Imodium + antihistamine</span></div>
+    <div class="pack-item" id="p-toothbrush" onclick="togglePack('toothbrush')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Toothbrush + toothpaste</span></div>
+    <div class="pack-item" id="p-deodorant" onclick="togglePack('deodorant')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Deodorant</span></div>
+    <div class="pack-item" id="p-razor" onclick="togglePack('razor')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Razor</span></div>
+    <div class="pack-item" id="p-lip_balm" onclick="togglePack('lip_balm')"><div class="pack-cb"><div class="pack-check"></div></div><span class="pack-label">Lip balm (long-haul dry air)</span></div>
+  </div>
+
+  <div class="psub" style="margin-top:20px;">🔌 Adapters + Voltage — What to Pack</div>
+  <div class="pc" style="border-left:3px solid var(--gold);"><div class="pch">One Universal Adapter Covers All 4 Countries</div>
+  <div class="pcb" style="font-size:10px;line-height:1.9;">
+    <strong>Korea (Seoul):</strong> Type C/F · 220V · Round 2-pin European<br>
+    <strong>Singapore:</strong> Type G · 230V · UK 3-pin<br>
+    <strong>Malaysia (JB):</strong> Type G · 240V · UK 3-pin (identical to SG)<br>
+    <strong>Indonesia (Bali):</strong> Type C/F · 220V · Round 2-pin European<br>
+    <strong>Germany (Munich):</strong> Type C/F · 220V · Round 2-pin European<br><br>
+    <strong>Buy: 1x Universal Travel Adapter</strong> with built-in USB-A + USB-C ports. Brands: BESTEK, Ceptics, MOGICS. ~CAD $20–35 on Amazon. One adapter for the whole trip — no need to buy multiple.<br><br>
+    <strong>⚠ Voltage check:</strong> Look at the label on every charger/brick. "Input: 100–240V, 50/60Hz" = safe everywhere (auto-adapts). Most modern phone chargers, MacBooks, cameras = 100–240V ✓. If you see "120V only" on anything, leave it home or buy a converter.
+  </div></div>
+
+  <div class="psub" style="margin-top:20px;">💴 Money — How Much + Best FX</div>
+  <div style="overflow-x:auto;">
+  <table class="money-table">
+    <thead><tr><th>Destination</th><th>Est. Total</th><th>Plug Type</th><th>Best FX</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Seoul</strong> (1 night)</td><td class="amt">~CAD $200</td><td style="font-size:9px;">Type C/F · 220V</td><td style="font-size:9px;">ICN ATM (KEB Hana/Woori). Skip counters. Wise card pre-loaded KRW.</td></tr>
+      <tr><td><strong>Singapore</strong> (2 nights)</td><td class="amt">~CAD $350–500</td><td style="font-size:9px;">Type G · 230V</td><td style="font-size:9px;">Mostly cashless. SGD $50 cash max. The Arcade money changers if needed.</td></tr>
+      <tr><td><strong>Bali</strong> (5 nights)</td><td class="amt">~CAD $300–500</td><td style="font-size:9px;">Type C/F · 220V</td><td style="font-size:9px;"><strong>Cash only.</strong> BNI/BCA ATMs. Avoid Cactus/Euronet. Always pay in IDR.</td></tr>
+      <tr><td><strong>Malaysia JB</strong> (1 night)</td><td class="amt">~CAD $80–130</td><td style="font-size:9px;">Type G · 240V</td><td style="font-size:9px;">RM 200 cash from Maybank/CIMB ATM in JB. Grab pays in MYR.</td></tr>
+      <tr><td><strong>Munich</strong> (9h)</td><td class="amt">~CAD $100–150</td><td style="font-size:9px;">Type C/F · 220V</td><td style="font-size:9px;">€80–100 cash from MUC Sparkasse ATM. Avoid Travelex.</td></tr>
+      <tr style="background:rgba(200,148,42,0.06);"><td><strong>TOTAL</strong></td><td class="amt" style="font-size:13px;">~CAD $1,050–1,500</td><td style="font-size:9px;"><strong>1x universal adapter</strong> covers all countries</td><td style="font-size:9px;"><strong>Wise card</strong> (wise.com/ca) covers KRW/SGD/EUR at mid-market. Local ATMs for IDR + MYR.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="pc"><div class="pch">💡 FX Tips</div>
+  <div class="pcb"><strong>Never exchange at airport kiosks</strong> — 5–10% worse than market rate.<br><br><strong>Bali ATM scam warning:</strong> Only use BNI, BCA, or Mandiri ATMs. Always decline "dynamic currency conversion" — always pay in IDR.<br><br><strong>Singapore:</strong> Licensed money changers at The Arcade (Raffles Place) or Chinatown Complex B1 beat every bank and airport rate.</div></div>
+</div>
+</div>
+
+
+</div><!-- /app -->
+
+<!-- ══════════════════════════════════════════════
+     ALL JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+const STORAGE_KEY = 'mark_trip_2026_v3';
+
+// ── STATE ──
+function getState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {}
+}
+
+// ── PASSWORD ──
+const DEFAULT_PW = 'Piano1234';
+function getStoredPw() {
+  return getState().password || DEFAULT_PW;
+}
+function checkPw() {
+  const val = document.getElementById('pw-input').value;
+  if (val === getStoredPw()) {
+    const s = getState(); s.unlocked = true; saveState(s);
+    document.getElementById('pw-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    restoreState();
+  } else {
+    document.getElementById('pw-err').textContent = 'Incorrect password';
+    document.getElementById('pw-input').value = '';
+    setTimeout(() => document.getElementById('pw-err').textContent = '', 2000);
+  }
+}
+function changePw() {
+  const newPw = document.getElementById('pw-change-new').value.trim();
+  if (!newPw || newPw.length < 4) {
+    document.getElementById('pw-change-msg').textContent = 'Min 4 characters';
+    return;
+  }
+  const s = getState(); s.password = newPw; saveState(s);
+  document.getElementById('pw-change-msg').textContent = '✓ Password saved';
+  document.getElementById('pw-change-new').value = '';
+  setTimeout(() => document.getElementById('pw-change-msg').textContent = '', 2000);
+}
+function lockApp() {
+  const s = getState(); s.unlocked = false; saveState(s);
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('pw-screen').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+}
+
+// ── TABS ──
+function show(id, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (el) el.classList.add('active');
+  const s = getState(); s.activeTab = id; saveState(s);
+  if (id === 'maps') { if(!window._mapInited){mswitch('seoul');window._mapInited=true;} }
+}
+
+// ── TASKS ──
+function toggleTask(key) {
+  const el = document.getElementById('t-' + key);
+  if (!el) return;
+  const isDone = el.classList.toggle('done');
+  const s = getState();
+  if (!s.tasks) s.tasks = {};
+  s.tasks[key] = isDone;
+  saveState(s);
+  updateProgress();
+}
+function updateProgress() {
+  const tasks = document.querySelectorAll('.task-item');
+  const done = document.querySelectorAll('.task-item.done');
+  const pct = tasks.length ? Math.round((done.length / tasks.length) * 100) : 0;
+  const bar = document.getElementById('prog-bar');
+  const label = document.getElementById('prog-label');
+  if (bar) bar.style.width = pct + '%';
+  if (label) label.textContent = done.length + ' / ' + tasks.length + ' tasks complete';
+}
+
+// ── PACKING ──
+function togglePack(key) {
+  const el = document.getElementById('p-' + key);
+  if (!el) return;
+  const isPacked = el.classList.toggle('packed');
+  const s = getState();
+  if (!s.pack) s.pack = {};
+  s.pack[key] = isPacked;
+  saveState(s);
+}
+
+// ── MAPS ──
+let _map = null;
+let _markers = [];
+
+const MDATA = {
+  seoul: {
+    center:[37.574,126.979], zoom:13,
+    ctx:'<strong style="color:#c8942a">Seoul</strong> · Land ICN T1 17:30 May 16 → Depart ICN T2 16:10 May 17 · ~22h layover',
+    btnBorder:'#8040d0', btnBg:'rgba(128,64,208,0.25)', btnColor:'#c080e8',
+    allMaps:'https://www.google.com/maps/dir/Zzzip+Guesthouse+Hongdae+Seoul/Gyeongbokgung+Palace+Seoul/Bukchon+Hanok+Village+Seoul/Gwangjang+Market+Seoul/JINS+Myeongdong+Seoul/Born+and+Bred+Restaurant+Seongdong+Seoul',
+    pins:[
+      {lat:37.5748,lng:126.9786,num:1,color:'#8040d0',type:'🛏 Hostel · Top Pick',name:'Jongno Stay',detail:'5 min walk to palace · Dorm ₩35k',gmaps:'https://maps.google.com/?q=Jongno+Stay+Hostel+Seoul'},
+      {lat:37.5796,lng:126.9770,num:2,color:'#308050',type:'🗺 Sight',name:'Gyeongbokgung Palace',detail:'Opens 9am · Guard change 10am · ₩3,000',gmaps:'https://maps.google.com/?q=Gyeongbokgung+Palace+Seoul'},
+      {lat:37.5813,lng:126.9851,num:3,color:'#308050',type:'🗺 Sight',name:'Bukchon Hanok Village',detail:'15 min walk from palace · Free',gmaps:'https://maps.google.com/?q=Bukchon+Hanok+Village+Seoul'},
+      {lat:37.5742,lng:126.9853,num:4,color:'#308050',type:'🗺 Sight',name:'Insadong + Ssamziegil',detail:'Artisan district · Free to walk',gmaps:'https://maps.google.com/?q=Insadong+Seoul'},
+      {lat:37.5699,lng:126.9998,num:5,color:'#c8942a',type:'🍽 Eat · Must-Do',name:'Gwangjang Market',detail:'Bindaetteok + mayak gimbap + yukhoe · ₩15–20k · Cash only',gmaps:'https://maps.google.com/?q=Gwangjang+Market+Seoul'},
+      {lat:37.5524,lng:127.0355,num:6,color:'#d4af37',type:'🥩 Omakase · BOOKED ✓',name:'Born & Bred',detail:'Hanwoo speakeasy · 7 seats · 20:00 May 16 · ₩380k',gmaps:'https://maps.google.com/?q=Born+and+Bred+Restaurant+Seongdong+Seoul'},
+      {lat:37.5383,lng:126.9948,num:7,color:'#c8942a',type:'🍽 Eat · Hanwoo BBQ',name:'Maple Tree House',detail:'Grade 1++ hanwoo · English menu · ₩100k/person',gmaps:'https://maps.google.com/?q=Maple+Tree+House+Itaewon+Seoul'},
+      {lat:37.5218,lng:127.0361,num:8,color:'#c8942a',type:'🍽 Eat · CCW Michelin',name:'SOIGNÉ',detail:'CCW S2 · Hanwoo tasting menu · ₩250k · CATCHTABLE',gmaps:'https://maps.google.com/?q=Soigne+Restaurant+Gangnam+Seoul'},
+      {lat:37.5563,lng:126.9238,num:9,color:'#8040d0',type:'🛏 Hostel · ★9.78 Hostelworld',name:'Zzzip Guesthouse (Hongdae)',detail:'Highest-rated Seoul hostel · Social · Family-run · Dorm ₩28k',gmaps:'https://maps.google.com/?q=Zzzip+Guesthouse+Hongdae+Seoul'},
+      {lat:37.5641,lng:126.9826,num:10,color:'#60b0e8',type:'👓 Eyewear · JINS',name:'JINS Myeongdong',detail:'Japanese frames + lenses from ₩30k · Ready in 30–60min · Open 10am–10pm',gmaps:'https://maps.google.com/?q=JINS+Myeongdong+Seoul'},
+      {lat:37.5544,lng:126.9365,num:11,color:'#60b0e8',type:'👓 Eyewear · JINS (near Zzzip)',name:'JINS Sinchon',detail:'Walking distance from Zzzip hostel · Same as Myeongdong · Frames from ₩30k',gmaps:'https://maps.google.com/?q=JINS+Sinchon+Seoul'},
+    ]
+  },
+  singapore: {
+    center:[1.2894,103.8510], zoom:13,
+    ctx:'<strong style="color:#c8942a">Singapore</strong> · Arrive SIN T3 21:30 May 17 · 2 nights pre-Bali · 1 night post-Bali (May 24–25, fly home 22:45)',
+    btnBorder:'#b03030', btnBg:'rgba(176,48,48,0.2)', btnColor:'#e08080',
+    allMaps:'https://www.google.com/maps/dir/Wink+Hostel+Upper+Cross+Street+Singapore/Gardens+by+the+Bay+Singapore/OWNDAYS+Marina+Bay+Sands+Singapore/Les+Amis+1+Scotts+Road+Singapore/Maxwell+Food+Centre+Singapore/Newton+Food+Centre+Singapore/Candlenut+Dempsey+Hill+Singapore',
+    pins:[
+      {lat:1.2854,lng:103.8442,num:1,color:'#b03030',type:'🏨 Hotel · Top Pick',name:'Parkroyal Collection Pickering',detail:'Sky gardens · Infinity pool · ~SGD 420/night',gmaps:'https://maps.google.com/?q=Parkroyal+Collection+Pickering+Singapore'},
+      {lat:1.2834,lng:103.8607,num:2,color:'#b03030',type:'🏨 Hotel · Splurge',name:'Marina Bay Sands',detail:'Rooftop pool (guests only) · ~SGD 650/night',gmaps:'https://maps.google.com/?q=Marina+Bay+Sands+Singapore'},
+      {lat:1.2862,lng:103.8472,num:3,color:'#8040d0',type:'🛏 Hostel · Best Location',name:'Wink Hostel (Upper Cross St)',detail:'Closest hostel to MBS · ~SGD 38/dorm',gmaps:'https://maps.google.com/?q=Wink+Hostel+Upper+Cross+Street+Singapore'},
+      {lat:1.2903,lng:103.8454,num:4,color:'#8040d0',type:'🛏 Hostel · Best Vibe',name:'River City Inn (Clarke Quay)',detail:'Riverside · Incl. breakfast · ~SGD 32/dorm',gmaps:'https://maps.google.com/?q=River+City+Inn+Clarke+Quay+Singapore'},
+      {lat:1.2787,lng:103.8428,num:5,color:'#8040d0',type:'🛏 Hostel · Best Value',name:'ST Signature Tanjong Pagar',detail:'5min to Maxwell FC · ~SGD 35/dorm',gmaps:'https://maps.google.com/?q=ST+Signature+Tanjong+Pagar+Singapore'},
+      {lat:1.2820,lng:103.8440,num:6,color:'#8040d0',type:'🛏 Hostel · Capsule',name:'Cube Boutique Capsule (Chinatown)',detail:'Rainfall showers · ~SGD 55/capsule',gmaps:'https://maps.google.com/?q=Cube+Boutique+Capsule+Hotel+Chinatown+Singapore'},
+      {lat:1.2996,lng:103.8554,num:7,color:'#8040d0',type:'🛏 Hostel · No-Frills',name:'The POD Boutique Capsule (Bugis)',detail:'Solo fave · ~SGD 30/dorm',gmaps:'https://maps.google.com/?q=The+POD+Boutique+Capsule+Hostel+Bugis+Singapore'},
+      {lat:1.3060,lng:103.8311,num:8,color:'#d4af37',type:'🍽 Michelin ⭐⭐⭐ BOOKED ✓',name:'Les Amis',detail:'18 May 19:30 · Shaw Centre, Scotts Rd · BOOKED',gmaps:'https://maps.google.com/?q=Les+Amis+Restaurant+1+Scotts+Road+Singapore'},
+      {lat:1.2816,lng:103.8636,num:9,color:'#308050',type:'🗺 Sight',name:'Gardens by the Bay',detail:'Flower Dome + Cloud Forest · ~SGD 53 · Free light show 19:45',gmaps:'https://maps.google.com/?q=Gardens+by+the+Bay+Singapore'},
+      {lat:1.2836,lng:103.8607,num:10,color:'#308050',type:'🗺 Sight',name:'MBS Skypark Observation Deck',detail:'57F · 360° views · ~SGD 32',gmaps:'https://maps.google.com/?q=Marina+Bay+Sands+Skypark+Singapore'},
+      {lat:1.2869,lng:103.8545,num:11,color:'#308050',type:'🗺 Sight',name:'Merlion Park + Waterfront',detail:'Free · Iconic · Evening walk starting point',gmaps:'https://maps.google.com/?q=Merlion+Park+Singapore'},
+      {lat:1.3021,lng:103.8594,num:12,color:'#308050',type:'🗺 Sight',name:'Haji Lane + Arab Street',detail:'Street murals · Sultan Mosque · Free',gmaps:'https://maps.google.com/?q=Haji+Lane+Singapore'},
+      {lat:1.2833,lng:103.8459,num:13,color:'#308050',type:'🗺 Sight',name:'Chinatown Night Walk',detail:'Pagoda St · Buddha Tooth Temple lit at night · Free',gmaps:'https://maps.google.com/?q=Chinatown+Singapore'},
+      {lat:1.2495,lng:103.8198,num:14,color:'#308050',type:'🗺 Sight',name:'Sentosa Island (Palawan/Siloso Beach)',detail:'25 min MRT · Beach + swim + cold drink',gmaps:'https://maps.google.com/?q=Palawan+Beach+Sentosa+Singapore'},
+      {lat:1.2802,lng:103.8449,num:15,color:'#c8942a',type:'🍽 Eat · Hawker',name:'Maxwell Food Centre',detail:'Tian Tian Chicken Rice #10 · ~SGD 6 · Cash only',gmaps:'https://maps.google.com/?q=Maxwell+Food+Centre+Singapore'},
+      {lat:1.2900,lng:103.8460,num:16,color:'#c8942a',type:'🍽 Eat · Late Night',name:'Newton Food Centre',detail:'Open 2am+ · Satay + BBQ stingray · ~SGD 28',gmaps:'https://maps.google.com/?q=Newton+Food+Centre+Singapore'},
+      {lat:1.2908,lng:103.8454,num:17,color:'#c8942a',type:'🍽 Eat · Farewell',name:'No Signboard Seafood (Clarke Quay)',detail:'Chilli crab + mantou · ~SGD 110/person',gmaps:'https://maps.google.com/?q=No+Signboard+Seafood+Clarke+Quay+Singapore'},
+      {lat:1.3055,lng:103.8159,num:18,color:'#c8942a',type:'🍽 Michelin ⭐ Peranakan',name:'Candlenut (Dempsey Hill)',detail:"World's only Michelin Peranakan · ~SGD 95/person",gmaps:'https://maps.google.com/?q=Candlenut+Restaurant+Dempsey+Hill+Singapore'},
+      {lat:1.2902,lng:103.8525,num:19,color:'#c8942a',type:'🍽 Eat · Hawker Hall',name:'Lau Pa Sat + Satay Street',detail:'Victorian hawker hall · Charcoal satay · ~SGD 22',gmaps:'https://maps.google.com/?q=Lau+Pa+Sat+Singapore'},
+      {lat:1.3038,lng:103.8318,num:20,color:'#c8942a',type:'🍽 Eat · Kopitiam',name:'Killiney Kopitiam (1919 Original)',detail:'Kaya toast + kopi-O · ~SGD 6',gmaps:'https://maps.google.com/?q=Killiney+Kopitiam+67+Killiney+Road+Singapore'},
+      {lat:1.3030,lng:103.8320,num:21,color:'#60b0e8',type:'👓 Eyewear · OWNDAYS (JINS equiv)',name:'OWNDAYS ION Orchard',detail:'Japanese frames from SGD $98 incl. lenses · Ready 20 min · Near Les Amis · May 18 ~17:30',gmaps:'https://maps.google.com/?q=OWNDAYS+ION+Orchard+Singapore'},
+      {lat:1.2931,lng:103.8531,num:22,color:'#60b0e8',type:'👓 Eyewear · OWNDAYS',name:'OWNDAYS Raffles City',detail:'#B1-41 Raffles City · CBD location · Easy from Wink Hostel · Open 11am–10pm',gmaps:'https://maps.google.com/?q=OWNDAYS+Raffles+City+Singapore'},
+      {lat:1.2834,lng:103.8607,num:23,color:'#60b0e8',type:'👓 Eyewear · OWNDAYS',name:'OWNDAYS Marina Bay Sands',detail:'#B2-117 The Shoppes · Walk from Gardens by the Bay · May 18 after morning',gmaps:'https://maps.google.com/?q=OWNDAYS+Marina+Bay+Sands+Singapore'},
+    ]
+  },
+  munich: {
+    center:[48.1374,11.5755], zoom:14,
+    ctx:'<strong style="color:#c8942a">Munich</strong> · Land MUC T2 05:15 May 26 · Depart 15:50 · ~10h layover · S-Bahn to Marienplatz 40min (€13.60)',
+    btnBorder:'#4090c0', btnBg:'rgba(64,144,192,0.15)', btnColor:'#80c0e8',
+    allMaps:'https://www.google.com/maps/dir/Marienplatz+Munich/Viktualienmarkt+Munich/Asamkirche+Munich/Residenz+Munich/MUCA+Museum+Munich/Augustiner+Braustube+Munich/English+Garden+Munich/Eisbach+Wave+Munich/Chinesischer+Turm+Beer+Garden+Munich/Tantris+Munich',
+    pins:[
+      {lat:48.1374,lng:11.5755,num:1,color:'#4090c0',type:'🗺 Start Here · S-Bahn stop',name:'Marienplatz',detail:'Glockenspiel 11am + noon · 40min from MUC by S-Bahn',gmaps:'https://maps.google.com/?q=Marienplatz+Munich+Germany'},
+      {lat:48.1350,lng:11.5760,num:2,color:'#c8942a',type:'🍽 Eat · 07:30 Must-Do',name:'Viktualienmarkt',detail:'Weisswurst + Weissbier breakfast · Open 7am · ~€12 · 2min walk',gmaps:'https://maps.google.com/?q=Viktualienmarkt+Munich+Germany'},
+      {lat:48.1378,lng:11.5766,num:3,color:'#c8942a',type:'🍽 Eat · Deli',name:'Dallmayr Delicatessen',detail:"Europe's finest food hall · Browse free · Steps from Marienplatz",gmaps:'https://maps.google.com/?q=Dallmayr+Munich+Germany'},
+      {lat:48.1341,lng:11.5671,num:4,color:'#308050',type:'🗺 Hidden Gem · Free',name:'Asamkirche',detail:'Hidden Baroque masterpiece · Free · 5min walk from Marienplatz',gmaps:'https://maps.google.com/?q=Asamkirche+Munich+Germany'},
+      {lat:48.1410,lng:11.5779,num:5,color:'#308050',type:'🗺 Best Indoor Sight',name:'Residenz Munich',detail:'130 rooms · Royal palace · ~€9 · Opens 9am',gmaps:'https://maps.google.com/?q=Residenz+Munich+Germany'},
+      {lat:48.1370,lng:11.5738,num:6,color:'#308050',type:'🗺 Art · Urban',name:'MUCA Museum',detail:'Banksy, Shepard Fairey, Os Gemeos · ~€14 · Near Marienplatz',gmaps:'https://maps.google.com/?q=MUCA+Museum+Munich+Germany'},
+      {lat:48.1324,lng:11.5451,num:7,color:'#c8942a',type:'🍽 Eat · Real Beer Hall',name:'Augustiner Bräustuben',detail:'Skip Hofbräuhaus — local crowd, better beer',gmaps:'https://maps.google.com/?q=Augustiner+Braustube+Landsberger+Strasse+Munich'},
+      {lat:48.1448,lng:11.5879,num:8,color:'#308050',type:'🗺 Sight · Park',name:'English Garden + Eisbach Surfers',detail:'River wave surfers year-round · Free · Larger than Central Park',gmaps:'https://maps.google.com/?q=Eisbach+Wave+Munich+English+Garden'},
+      {lat:48.1542,lng:11.5891,num:9,color:'#c8942a',type:'🍽 Eat · Beer Garden',name:'Chinesischer Turm Beer Garden',detail:'Best beer garden in Munich · Opens 10am in May',gmaps:'https://maps.google.com/?q=Chinesischer+Turm+Beer+Garden+Munich'},
+      {lat:48.1264,lng:11.5475,num:10,color:'#308050',type:'🗺 Sight · Local Secret',name:'Isar River Banks',detail:'Locals sunbathing + swimming · Free · Off tourist trail',gmaps:'https://maps.google.com/?q=Isar+River+Munich+Reichenbachbrücke'},
+      {lat:48.1732,lng:11.5464,num:11,color:'#308050',type:'🗺 Sight · Olympic Village',name:'Olympiapark + Olympic Village',detail:'Pop-culture murals · Hill views + Alps · Free to walk',gmaps:'https://maps.google.com/?q=Olympiapark+Munich+Germany'},
+      {lat:48.1634,lng:11.5849,num:12,color:'#c8942a',type:'🍽 Michelin ⭐⭐ · Future Visit',name:'Tantris',detail:'Legendary since 1971 · Birthplace of German fine dining',gmaps:'https://maps.google.com/?q=Tantris+Restaurant+Munich+Germany'},
+      {lat:48.1383,lng:11.5771,num:13,color:'#c8942a',type:'🍽 Michelin ⭐⭐⭐ · Future Visit',name:'Tohru in der Schreiberei',detail:'Only 3-star Munich · German-Japanese fusion · Eve only',gmaps:'https://maps.google.com/?q=Tohru+in+der+Schreiberei+Munich'},
+    ]
+  },
+  malaysia: {
+    center:[1.4655,103.7578], zoom:14,
+    ctx:'<strong style="color:#c8942a">Johor Bahru, Malaysia</strong> · Sleep May 24 → Cross back May 25 by 15:30 → Changi T2 for LH769 22:45',
+    btnBorder:'#d4af37', btnBg:'rgba(212,175,55,0.15)', btnColor:'#d4af37',
+    allMaps:'https://www.google.com/maps/dir/Z+Hotel+18+Jalan+Wong+Ah+Fook+Johor+Bahru/Restoran+Kacang+Pool+Haji+Johor+Bahru/Jalan+Tan+Hiok+Nee+Johor+Bahru/Kam+Long+Curry+Fish+Head+Johor+Bahru/City+Square+Mall+Johor+Bahru/JB+Checkpoint+Johor+Bahru',
+    pins:[
+      {lat:1.4629,lng:103.7576,num:1,color:'#d4af37',type:'🏨 Hotel · BOOKED ✓',name:'Z Hotel',detail:'18 Jalan Wong Ah Fook · Agoda #1001288518 · Heart of JB city centre',gmaps:'https://maps.google.com/?q=Z+Hotel+18+Jalan+Wong+Ah+Fook+Johor+Bahru'},
+      {lat:1.4553,lng:103.7619,num:2,color:'#4090c0',type:'🔑 Border Crossing',name:'JB CIQ Checkpoint',detail:'Clear Malaysian + Singapore immigration here · Bus 950/CW1 from Woodlands',gmaps:'https://maps.google.com/?q=Johor+Bahru+CIQ+Checkpoint+Malaysia'},
+      {lat:1.4639,lng:103.7592,num:3,color:'#c8942a',type:'🍽 Eat · Breakfast Icon',name:'Restoran Kacang Pool Haji',detail:'Kacang Pool — uniquely Johorean, nowhere else in the world · ~RM 8',gmaps:'https://maps.google.com/?q=Restoran+Kacang+Pool+Haji+Johor+Bahru'},
+      {lat:1.4637,lng:103.7577,num:4,color:'#308050',type:'🗺 Sight · Heritage Street',name:'Jalan Tan Hiok Nee',detail:'Street art, heritage shophouses, banana cake bakery at #13 · Free',gmaps:'https://maps.google.com/?q=Jalan+Tan+Hiok+Nee+Johor+Bahru'},
+      {lat:1.4635,lng:103.7581,num:5,color:'#308050',type:'🗺 Sight · Cafe Strip',name:'Jalan Dhoby',detail:'Melbourne-style coffee, indie cafes · Good for morning browse',gmaps:'https://maps.google.com/?q=Jalan+Dhoby+Johor+Bahru'},
+      {lat:1.4560,lng:103.7566,num:6,color:'#308050',type:'🗺 Sight · Mosque',name:'Sultan Abu Bakar Mosque',detail:'Colonial mosque overlooking Straits of Johor · Free outside prayer times',gmaps:'https://maps.google.com/?q=Sultan+Abu+Bakar+State+Mosque+Johor+Bahru'},
+      {lat:1.4603,lng:103.7521,num:7,color:'#c8942a',type:'🍽 Eat · Lunch · JB Icon',name:'Kam Long Curry Fish Head',detail:'Since 1983 · Claypot curry fish head · ~RM 35 · Queue expected',gmaps:'https://maps.google.com/?q=Kam+Long+Curry+Fish+Head+Johor+Bahru'},
+      {lat:1.4612,lng:103.7519,num:8,color:'#c8942a',type:'🍽 Eat · Johorean',name:'Restoran Woon Kiang',detail:'Kway Teow Kia — braised duck herbal soy broth · Distinctly Johorean · ~RM 12',gmaps:'https://maps.google.com/?q=Restoran+Woon+Kiang+Johor+Bahru'},
+      {lat:1.4648,lng:103.7622,num:9,color:'#c8942a',type:'🍽 Eat · Omakase',name:'Binchotan JB',detail:'12-seat omakase · Tatler top 20 Malaysia · Wagyu + Hokkaido scallop · Book ahead',gmaps:'https://maps.google.com/?q=Binchotan+Restaurant+Johor+Bahru'},
+      {lat:1.4579,lng:103.7616,num:10,color:'#c8942a',type:'🍽 Eat · European Bistro',name:'Chez Papa',detail:'European bistro · Steak frites + sea bass + daily specials · Great wine · 38 Jalan Jaya',gmaps:'https://maps.google.com/?q=Chez+Papa+38+Jalan+Jaya+Johor+Bahru'},
+      {lat:1.4661,lng:103.7582,num:11,color:'#308050',type:'🛍 Shopping',name:'City Square Mall',detail:'MYR goes ~3x vs SGD · Clothes, shoes, food court · 10 min walk from hotel',gmaps:'https://maps.google.com/?q=City+Square+Mall+Johor+Bahru'},
+    ]
+  }
+};
+
+function makeMarkerIcon(color, num) {
+  return L.divIcon({
+    html: '<div style="width:28px;height:28px;border-radius:50%;background:' + color + ';border:2px solid rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;font-weight:700;color:white;box-shadow:0 2px 8px rgba(0,0,0,0.5);line-height:1;">' + num + '</div>',
+    className:'', iconSize:[28,28], iconAnchor:[14,14], popupAnchor:[0,-16]
+  });
+}
+
+function mswitch(city) {
+  const d = MDATA[city];
+  document.getElementById('mctx').innerHTML = d.ctx;
+  document.getElementById('mall-btn').href = d.allMaps;
+
+  // Update buttons
+  ['seoul','singapore','malaysia','munich'].forEach(c => {
+    const btn = document.getElementById('mbtn-' + c);
+    if (!btn) return;
+    const cd = MDATA[c];
+    if (c === city) { btn.style.borderColor=cd.btnBorder; btn.style.background=cd.btnBg; btn.style.color=cd.btnColor; btn.style.fontWeight='700'; }
+    else { btn.style.borderColor='rgba(255,255,255,0.1)'; btn.style.background='transparent'; btn.style.color='#5a5040'; btn.style.fontWeight='400'; }
+  });
+
+  // Init or update map
+  if (!_map) {
+    _map = L.map('trip-map', {tap:true});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution:'© <a href="https://openstreetmap.org">OSM</a> © <a href="https://carto.com">CARTO</a>',
+      subdomains:'abcd', maxZoom:19
+    }).addTo(_map);
+  }
+
+  // Clear old markers
+  _markers.forEach(m => _map.removeLayer(m));
+  _markers = [];
+
+  // Fly to city
+  _map.setView(d.center, d.zoom);
+
+  // Add new markers
+  d.pins.forEach(p => {
+    const m = L.marker([p.lat, p.lng], {icon: makeMarkerIcon(p.color, p.num)})
+      .addTo(_map)
+      .bindPopup('<div class="pop-type">' + p.type + '</div><div class="pop-name">' + p.name + '</div><div class="pop-detail">' + p.detail + '</div><a href="' + p.gmaps + '" target="_blank" class="pop-link">Open in Google Maps ↗</a>', {maxWidth:220});
+    _markers.push(m);
+  });
+
+  // Render legend
+  const leg = document.getElementById('mlegend');
+  leg.innerHTML = '';
+  d.pins.forEach(p => {
+    const a = document.createElement('a');
+    a.href = p.gmaps; a.target = '_blank'; a.className = 'mpin';
+    a.style.borderLeftColor = p.color;
+    a.innerHTML = '<div class="mpin-type">' + p.type + '</div>' +
+      '<div class="mpin-name"><span class="num-pill" style="background:' + p.color + '">' + p.num + '</span>' + p.name + '</div>' +
+      '<div class="mpin-detail">' + p.detail + '</div>' +
+      '<div class="mpin-link">Open in Google Maps ↗</div>';
+    // Clicking legend card flies map to pin
+    a.addEventListener('click', function(e) {
+      if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); _map.setView([p.lat, p.lng], 16); _markers[p.num-1].openPopup(); }
+    });
+    leg.appendChild(a);
+  });
+
+  const s = getState(); s.mapCity = city; saveState(s);
+}
+
+// ── RESTORE STATE ON LOAD ──
+function restoreState() {
+  const s = getState();
+  Object.entries(s.tasks || {}).forEach(([key, done]) => {
+    if (done) { const el = document.getElementById('t-' + key); if (el) el.classList.add('done'); }
+  });
+  Object.entries(s.pack || {}).forEach(([key, packed]) => {
+    if (packed) { const el = document.getElementById('p-' + key); if (el) el.classList.add('packed'); }
+  });
+  updateProgress();
+  // Restore active tab
+  if (s.activeTab) {
+    const tabEl = document.querySelector(`[onclick="show('${s.activeTab}',this)"]`);
+    if (tabEl) show(s.activeTab, tabEl);
+  }
+}
+
+// ── INIT ──
+(function init() {
+  const s = getState();
+  // If already unlocked in storage, skip password
+  if (s.unlocked) {
+    document.getElementById('pw-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    restoreState();
+  }
+  // Enter key on password field
+  document.getElementById('pw-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPw();
+  });
+})();
+</script>
+</body>
+</html>
